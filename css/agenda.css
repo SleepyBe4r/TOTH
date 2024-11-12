@@ -1,0 +1,40 @@
+
+#calendar-container {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.meeting-slot {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.meeting-slot.available {
+    background-color: #c6efce; /* green */
+}
+
+.meeting-slot.awaiting-confirmation {
+    background-color: #ffffcc; /* yellow */
+}
+
+.meeting-slot.confirmed {
+    background-color: #c6efce; /* green */
+}
+
+.meeting-slot.blocked {
+    background-color: #ffc6c6; /* red */
+}
+
+.meeting-slot.realized {
+    background-color: #333; /* black */
+    color: #fff;
+}
+
+#meeting-details {
+    margin-top: 20px;
+}
