@@ -1,22 +1,27 @@
 #login_aluno{
     color: #DF4A19
 }
-.login-container{
-    margin-top: 5%;
-    margin-bottom: 5%;
+
+.login-container {
+    margin-top: 5rem;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
 }
+/* 
+.login-container h3 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+} */
+
 .login-form-1{
     padding: 5%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
-.login-form-1 h3{
-    text-align: center;
-    color: #333;
-}
-.login-form-2{
-    padding: 5%;
-    background: #DF4A19;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+.bg-custom-1{
+    background: #DF4A19;    
 }
 .login-form-2 h3{
     text-align: center;
