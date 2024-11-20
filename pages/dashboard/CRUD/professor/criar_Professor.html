@@ -29,7 +29,7 @@
   <div class="container-fluid bg-light shadow">
     <nav class="navbar navbar-expand-lg navbar-light py-3 px-5">
       <a href="#" class="navbar-brand font-weight-bold text-secondary" style="font-size: 40px">
-        <i class="fas fa-tools"></i> <span class="text-primary">Cadastrar Admin</span>
+        <i class="fas fa-tools"></i> <span class="text-primary">Cadastrar Professor</span>
       </a>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -43,19 +43,6 @@
     </nav>
   </div>
   <!-- Navbar End -->
-
-  <!-- Header Start -->
-  <div class="container-fluid bg-primary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-      <h3 class="display-3 font-weight-bold text-white">Criar Professor</h3>
-      <div class="d-inline-flex text-white">
-        <p class="m-0"><a class="text-white" href="">Area do Professor</a></p>
-        <p class="m-0 px-2">/</p>
-        <p class="m-0">Criar Professor</p>
-      </div>
-    </div>
-  </div>
-  <!-- Header End -->
 
   <!-- Content Start -->
   <div class="container my-5">
@@ -77,16 +64,37 @@
         <section id="form_notas" class="mb-5">
           <h4 class="text-primary">Cadastrar Professor</h4>
           <form>
+            <h4 class="text-primary">Dados de Login</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="txtUsername" required>
+                <label for="txtUsername" class="form-label">Nome de Usuário *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="password" class="form-control" id="txtPassword" 
+                    onblur="validarSenha(this,erro_txtPassword)" required>
+                <label for="txtPassword" class="form-label">Senha *  </label>
+                <label id="erro_txtPassword" class="form-label text-danger"></label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="password" class="form-control" id="txtConfirmPassword" 
+                    onblur="validarComfirmarSenha(txtPassword,this,erro_txtConfirmPassword)" required>
+                <label for="txtConfirmPassword" class="form-label">Confirmar Senha *  </label>
+                <label id="erro_txtConfirmPassword" class="form-label text-danger"></label>
+              </div>
+            </div>
             <!-- Dados Pessoais do Professor -->
-            <h4>Dados Pessoais do Professor</h4>
+            <h4 class="text-primary">Dados Pessoais do Professor</h4>
             <div class="mb-3">
               <input type="text" class="form-control" id="txtNomeProfessor" required>
-              <label for="txtNomeProfessor" class="form-label">Nome Completo</label>
+              <label for="txtNomeProfessor" class="form-label">Nome Completo *  </label>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="date" class="form-control" id="dtNascimento" required>
-                <label for="dtNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dtNascimento" 
+                    onblur="validarDataNascimentoAdulto(this,erro_dtNascimento)" required>
+                <label for="dtNascimento" class="form-label">Data de Nascimento *  </label>
+                <label id="erro_dtNascimento" class="form-label text-danger"></label>                
               </div>
               <div class="col-md-6 mb-3">
                 <select id="slctSexo" class="custom-select" required>
@@ -95,88 +103,53 @@
                   <option value="feminino">Feminino</option>
                   <option value="outro">Outro</option>
                 </select>
-                <label for="slctSexo" class="form-label">Sexo</label>
+                <label for="slctSexo" class="form-label">Sexo *  </label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtNacionalidade" required>
+                <input type="text" class="form-control" id="txtNacionalidade">
                 <label for="txtNacionalidade" class="form-label">Nacionalidade</label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtNaturalidade" required>
+                <input type="text" class="form-control" id="txtNaturalidade">
                 <label for="txtNaturalidade" class="form-label">Naturalidade</label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtRG">
-                <label for="txtRG" class="form-label">RG</label>
+                <input type="text" class="form-control" id="txtRG" 
+                    placeholder="##.###.###-#" onkeypress="mascara('##.###.###-##',this,event)" maxlength="12" required>
+                <label for="txtRG" class="form-label" >RG *  </label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtCPF">
-                <label for="txtCPF" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="txtCPF"
+                    placeholder="###.###.###-##" onkeypress="mascara('###.###.###-##',this,event,true)" 
+                    onblur="validarCPF(erro_txtCPF)" maxlength="14" required>
+                    <label for="txtCPF" class="form-label">CPF *  </label>
+                    <label id="erro_txtCPF" class="form-label text-danger"></label>
               </div>
             </div>
       
             <!-- Endereço -->
-            <h4>Endereço</h4>
+            <h4 class="text-primary">Endereço</h4>
             <div class="mb-3">
               <input type="text" class="form-control" id="txtEndereco" required>
-              <label for="txtEndereco" class="form-label">Endereço Completo</label>
+              <label for="txtEndereco" class="form-label">Endereço Completo *  </label>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="tel" class="form-control" id="txtTelefone" required>
-                <label for="txtTelefone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="txtCelular" 
+                    placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
+                <label for="txtCelular" class="form-label">Celular *  </label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="email" class="form-control" id="txtEmail" required>
-                <label for="txtEmail" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" required>
+                <label for="txtEmail" class="form-label">E-mail *  </label>
+                <label id="error_txtEmail" class="form-label text-danger"></label>
               </div>
             </div>
-      
-      
-      
-            <!-- Informações Profissionais -->
-            <h4>Informações Profissionais</h4>
-            <div class="row">
-              <div class="col-md-4 mb-3">
-                <input type="text" class="form-control" id="txtSerie" required>
-                <label for="txtSerie" class="form-label">
-                  Formação acadêmica(Graduação/Pós-Graduação/Mestrado/Doutorado)
-                </label>
-              </div>
-              <div class="col-md-4 mb-3">
-                <input type="text" class="form-control" id="txtSerie" required>
-                <label for="txtSerie" class="form-label">
-                  Experiência Profissional
-                </label>
-              </div>
-              <div class="col-md-4 mb-3">
-                <select id="slctTurno" class="custom-select" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option value="matutino">Matutino</option>
-                  <option value="vespertino">Vespertino</option>
-                  <option value="todos">Todos</option>
-                </select>
-                <label for="slctTurno" class="form-label">Disponibilidade de turnos</label>
-              </div>
-              <div class="col-md-4 mb-3">
-                <select id="slctTurno" class="custom-select" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option value="matutino">Sim</option>
-                  <option value="vespertino">Não</option>
-                  <option value="todos">Todos</option>
-                </select>
-                <label for="slctTurno" class="form-label">Disponibilidade para Ensino Remoto</label>
-              </div>
-              <div class="col-md-4 mb-3">
-                <h4> Envie aqui o seu Currículo:</h4> <br>
-                <input type="file">
-              </div>
-            </div>
-            <br>
+            
             <!-- Informações sobre Saúde -->
             <h4>Informações sobre Saúde</h4>
             <div class="mb-3">

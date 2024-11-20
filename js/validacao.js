@@ -214,6 +214,36 @@ function validarDataNascimentoAluno(data_obj,erro_obj) {
     return true;
 }
 
+function validarDataNascimentoAdulto(data_obj,erro_obj) {
+    const dataNascimento = data_obj.value;
+    
+    if (!dataNascimento) {
+      erro_obj.innerHTML = "Por favor, informe a data de nascimento.";
+      return false;
+    }
+
+    const dataAtual = new Date();
+    const dataNascimentoObj = new Date(dataNascimento);
+
+    // Calculando a diferença de idade
+    let idade = dataAtual.getFullYear() - dataNascimentoObj.getFullYear();
+    const mes = dataAtual.getMonth() - dataNascimentoObj.getMonth();
+    
+    if (mes < 0 || (mes === 0 && dataAtual.getDate() < dataNascimentoObj.getDate())) {
+      idade--;
+    }
+
+    // Verifica se a idade está acima de 18 anos
+    if (idade < 18) {
+      erro_obj.innerHTML = "A idade deve ser maior de 18 anos.";
+      return false;
+    }
+
+    // Se passou em todas as validações, envia o formulário
+    erro_obj.innerHTML = "";
+    return true;
+}
+
 /*
 fonte: https://github.com/FlavioALeal/MascaraJS
 
