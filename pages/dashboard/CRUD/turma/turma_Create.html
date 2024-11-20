@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Cadastrar Turma</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Nunito&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Flaticon Font -->
+  <link href="./../../../../lib/flaticon/font/flaticon.css" rel="stylesheet" />
+
+  <!-- Libraries Stylesheet -->
+  <link href="./../../../../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+  <link href="./../../../../lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
+
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="./../../../../css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navbar Start -->
+  <div class="container-fluid bg-light shadow">
+    <nav class="navbar navbar-expand-lg navbar-light py-3 px-5">
+      <a href="#" class="navbar-brand font-weight-bold text-secondary" style="font-size: 40px">
+        <i class="fas fa-users"></i> <span class="text-primary">Cadastrar Turma</span>
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="navbar-nav font-weight-bold mx-auto">
+          <a href="./../../admin/area_Admin.html" class="nav-item nav-link">Área do Admin</a>
+        </div>
+        <a href="./../../../../index.html" class="btn btn-danger px-4">Sair</a>
+      </div>
+    </nav>
+  </div>
+  <!-- Navbar End -->
+
+  <!-- Content Start -->
+  <div class="container my-5">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 mb-4">
+        <div class="bg-light shadow rounded p-4">
+          <h4 class="text-primary">Menu</h4>
+          <ul class="list-unstyled">
+            <li>
+              <a href="./../../admin/area_Admin.html" class="text-dark"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Main Section -->
+      <div class="col-md-9">
+        <!-- Formulário de Cadastro de Turma -->
+        <section id="form_turma" class="mb-5">
+          <h4 class="text-primary">Cadastrar Turma</h4>
+          <form>
+            <!-- Dados da Turma -->
+            <h4 class="text-primary">Informações da Turma</h4>
+            <div class="row">              
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="txtNomeTurma" placeholder="Turma A" required>
+                <label for="txtNomeTurma" class="form-label">Nome da Turma *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="number" class="form-control" id="txtAnoTurma" placeholder="2024" required>
+                <label for="txtAnoTurma" class="form-label">Ano *  </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <select id="slctSerie" class="form-control" required>
+                  <option value="" selected disabled>Selecione a Série</option>
+                  <option value="1">1º Ano</option>
+                  <option value="2">2º Ano</option>
+                  <option value="3">3º Ano</option>
+                  <option value="4">4º Ano</option>
+                  <option value="5">5º Ano</option>
+                  <option value="6">6º Ano</option>
+                  <option value="7">7º Ano</option>
+                  <option value="8">8º Ano</option>
+                  <option value="9">9º Ano</option>
+                </select>
+                <label for="slctSerie" class="form-label">Série *  </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="date" class="form-control" id="dtInicioTurma"
+                    onblur="validarDatasTurma(dtInicioTurma,dtFimTurma,erro_dtTurma)" required>
+                <label for="dtInicioTurma" class="form-label">Data de Início *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="date" class="form-control" id="dtFimTurma"
+                    onblur="validarDatasTurma(dtInicioTurma,dtFimTurma,erro_dtTurma)" required>
+                <label for="dtFimTurma" class="form-label">Data de Fim *  </label>
+                <label id="erro_dtTurma" class="form-label text-danger"></label>
+              </div>
+            </div>
+
+            <!-- Informações do Professor Responsável -->
+            <h4 class="text-primary">Professor Responsável</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="txtProfessorNome" required>
+                <label for="txtProfessorNome" class="form-label">Nome do Professor *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" required>
+                <label for="txtEmail" class="form-label">E-mail do Professor *  </label>
+                <label id="error_txtEmail" class="form-label text-danger"></label>
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <button type="submit" class="btn btn-primary">Finalizar cadastro</button>
+            <button class="btn btn-dark" type="submit" onclick="window.location='./../../admin/area_Admin.html'">Retornar</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- Content End -->
+
+  <!-- Footer Start -->
+  <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
+    <div class="row pt-5">
+      <div class="col-lg-3 col-md-6 mb-5">
+        <a href="" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0"
+          style="font-size: 40px; line-height: 40px">
+          <i class="flaticon-043-teddy-bear"></i>
+          <span class="text-white">Toth Academy</span>
+        </a>
+        <p>
+          O Colégio Toth foi fundado em 2020 pelos irmãos Amunhotep, Nefertari e Ptahmose Khafre,
+          filhos de imigrantes egípcios. Após enfrentarem dificuldades durante a imigração e adaptação nos EUA,
+          os irmãos decidiram criar uma escola com foco em inclusão e acessibilidade,
+          inspirada na sua própria trajetória e nas tradições culturais do Egito.
+        </p>
+        <div class="d-flex justify-content-start mt-4">
+          <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0" style="width: 38px; height: 38px"
+            href="#"><i class="fab fa-twitter"></i></a>
+          <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0" style="width: 38px; height: 38px"
+            href="//pt-br.facebook.com/login/?next=https%3A%2F%2Fpt-br.facebook.com%2F"><i
+              class="fab fa-facebook-f"></i></a>
+          <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0" style="width: 38px; height: 38px"
+            href="https://www.linkedin.com/home"><i class="fab fa-linkedin-in"></i></a>
+          <a class="btn btn-outline-primary rounded-circle text-center mr-2 px-0" style="width: 38px; height: 38px"
+            href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid pt-5" style="border-top: 1px solid rgba(23, 162, 184, 0.2) ;">
+      <p class="m-0 text-center text-white">
+        &copy;
+        <a class="text-primary" href="#">Toth Academy</a>. Todos os direitos reservados
+      </p>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+  <!-- JavaScript Libraries -->
+  <script src="./../../../../lib/jquery/jquery.min.js"></script>
+  <script src="./../../../../lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="./../../../../lib/lightbox/js/lightbox.min.js"></script>
+
+  <!-- Contact Javascript File -->
+  <script src="./../../../../js/validacao.js"></script>
+</body>
+
+</html>
