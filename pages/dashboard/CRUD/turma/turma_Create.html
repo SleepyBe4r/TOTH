@@ -55,6 +55,9 @@
             <li>
               <a href="./../../admin/area_Admin.html" class="text-dark"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</a>
             </li>
+            <li>
+                <a href="./turma_Index.html" class="text-dark"><i class="fas fa-list"></i> Listar turmas</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -63,7 +66,7 @@
         <!-- Formulário de Cadastro de Turma -->
         <section id="form_turma" class="mb-5">
           <h4 class="text-primary">Cadastrar Turma</h4>
-          <form>
+          <form onsubmit="salvarTurma(event)">
             <!-- Dados da Turma -->
             <h4 class="text-primary">Informações da Turma</h4>
             <div class="row">              
@@ -80,15 +83,15 @@
               <div class="col-md-6 mb-3">
                 <select id="slctSerie" class="form-control" required>
                   <option value="" selected disabled>Selecione a Série</option>
-                  <option value="1">1º Ano</option>
-                  <option value="2">2º Ano</option>
-                  <option value="3">3º Ano</option>
-                  <option value="4">4º Ano</option>
-                  <option value="5">5º Ano</option>
-                  <option value="6">6º Ano</option>
-                  <option value="7">7º Ano</option>
-                  <option value="8">8º Ano</option>
-                  <option value="9">9º Ano</option>
+                  <option value="1º Ano">1º Ano</option>
+                  <option value="2º Ano">2º Ano</option>
+                  <option value="3º Ano">3º Ano</option>
+                  <option value="4º Ano">4º Ano</option>
+                  <option value="5º Ano">5º Ano</option>
+                  <option value="6º Ano">6º Ano</option>
+                  <option value="7º Ano">7º Ano</option>
+                  <option value="8º Ano">8º Ano</option>
+                  <option value="9º Ano">9º Ano</option>
                 </select>
                 <label for="slctSerie" class="form-label">Série *  </label>
               </div>
@@ -167,15 +170,49 @@
       </p>
     </div>
   </div>
-  <!-- Footer End -->
-
-  <!-- JavaScript Libraries -->
-  <script src="./../../../../lib/jquery/jquery.min.js"></script>
-  <script src="./../../../../lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="./../../../../lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Footer End -->  
 
   <!-- Contact Javascript File -->
   <script src="./../../../../js/validacao.js"></script>
+  <script>
+    // Função para salvar os dados do formulário no Local Storage
+    function salvarTurma(event) {
+      event.preventDefault(); // Previne o envio padrão do formulário
+  
+      // Captura os valores dos campos
+      const nomeTurma = document.getElementById("txtNomeTurma").value.trim();
+      const anoTurma = document.getElementById("txtAnoTurma").value.trim();
+      const serie = document.getElementById("slctSerie").value;
+      const dataInicio = document.getElementById("dtInicioTurma").value;
+      const dataFim = document.getElementById("dtFimTurma").value;
+      const professorNome = document.getElementById("txtProfessorNome").value.trim();
+      const professorEmail = document.getElementById("txtEmail").value.trim();
+  
+      // Cria um objeto com os dados
+      const turma = {
+        id: new Date().getTime(),
+        nome: nomeTurma,
+        ano: anoTurma,
+        serie: serie,
+        professor: professorNome,        
+        dataInicio: dataInicio,
+        dataFim: dataFim,
+      };
+  
+      // Recupera turmas existentes do Local Storage (se houver)
+      const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+  
+      // Adiciona a nova turma à lista
+      turmas.push(turma);
+  
+      // Salva a lista atualizada no Local Storage
+      localStorage.setItem("turmas", JSON.stringify(turmas));
+  
+      alert("Turma cadastrada com sucesso!");      
+      document.location.href = "./turma_Index.html";      
+    }
+  </script>
+  
 </body>
 
 </html>
