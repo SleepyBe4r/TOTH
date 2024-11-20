@@ -68,27 +68,33 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <input type="text" class="form-control" id="txtUsername" required>
-                <label for="txtUsername" class="form-label">Nome de Usuário</label>
+                <label for="txtUsername" class="form-label">Nome de Usuário *  </label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="password" class="form-control" id="txtPassword" required>
-                <label for="txtPassword" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="txtPassword" 
+                    onblur="validarSenha(this,erro_txtPassword)" required>
+                <label for="txtPassword" class="form-label">Senha *  </label>
+                <label id="erro_txtPassword" class="form-label text-danger"></label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="password" class="form-control" id="txtConfirmPassword" onblur="validarSenha()" required>
-                <label for="txtConfirmPassword" class="form-label">Confirmar Senha</label>
+                <input type="password" class="form-control" id="txtConfirmPassword" 
+                    onblur="validarComfirmarSenha(txtPassword,this,erro_txtConfirmPassword)" required>
+                <label for="txtConfirmPassword" class="form-label">Confirmar Senha *  </label>
+                <label id="erro_txtConfirmPassword" class="form-label text-danger"></label>
               </div>
             </div>
             <!-- Dados Pessoais do Aluno -->
             <h4 class="text-primary">Dados Pessoais do Aluno</h4>
             <div class="mb-3">
               <input type="text" class="form-control" id="txtNomeAluno" required>
-              <label for="txtNomeAluno" class="form-label">Nome Completo</label>
+              <label for="txtNomeAluno" class="form-label">Nome Completo *  </label>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="date" class="form-control" id="dtNascimento" required>
-                <label for="dtNascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" class="form-control" id="dtNascimento" 
+                    onblur="validarDataNascimentoAluno(this,erro_dtNascimento)" required>
+                <label for="dtNascimento" class="form-label">Data de Nascimento *  </label>
+                <label id="erro_dtNascimento" class="form-label text-danger"></label>
               </div>
               <div class="col-md-6 mb-3">
                 <select id="slctSexo" class="custom-select" required>
@@ -97,29 +103,31 @@
                   <option value="feminino">Feminino</option>
                   <option value="outro">Outro</option>
                 </select>
-                <label for="slctSexo" class="form-label">Sexo</label>
+                <label for="slctSexo" class="form-label">Sexo *  </label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtNacionalidade" required>
+                <input type="text" class="form-control" id="txtNacionalidade">
                 <label for="txtNacionalidade" class="form-label">Nacionalidade</label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtNaturalidade" required>
+                <input type="text" class="form-control" id="txtNaturalidade">
                 <label for="txtNaturalidade" class="form-label">Naturalidade</label>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <input type="text" class="form-control" id="txtRG" 
-                    placeholder="##.###.###-#" onkeypress="mascara('##.###.###-##',this,event)" maxlength="12">
-                <label for="txtRG" class="form-label" >RG</label>
+                    placeholder="##.###.###-#" onkeypress="mascara('##.###.###-##',this,event)" maxlength="12" required>
+                <label for="txtRG" class="form-label" >RG *  </label>
               </div>
               <div class="col-md-6 mb-3">
                 <input type="text" class="form-control" id="txtCPF"
-                    placeholder="###.###.###-##" onkeyup="mascara('###.###.###-##',this,event,true)" maxlength="14">
-                <label for="txtCPF" class="form-label">CPF</label>
+                    placeholder="###.###.###-##" onkeypress="mascara('###.###.###-##',this,event,true)" 
+                    onblur="validarCPF(erro_txtCPF)" maxlength="14" required>
+                    <label for="txtCPF" class="form-label">CPF *  </label>
+                    <label id="erro_txtCPF" class="form-label text-danger"></label>
               </div>
             </div>
       
@@ -127,17 +135,18 @@
             <h4 class="text-primary">Endereço</h4>
             <div class="mb-3">
               <input type="text" class="form-control" id="txtEndereco" required>
-              <label for="txtEndereco" class="form-label">Endereço Completo</label>
+              <label for="txtEndereco" class="form-label">Endereço Completo *  </label>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <input type="tel" class="form-control" id="txtCelular" 
                     placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
-                <label for="txtCelular" class="form-label">Celular</label>
+                <label for="txtCelular" class="form-label">Celular *  </label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="email" class="form-control" id="txtEmail" required>
-                <label for="txtEmail" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" required>
+                <label for="txtEmail" class="form-label">E-mail *  </label>
+                <label id="error_txtEmail" class="form-label text-danger"></label>
               </div>
             </div>
       
@@ -145,20 +154,34 @@
             <h4 class="text-primary">Dados do Responsável</h4>
             <div class="mb-3">
               <input type="text" class="form-control" id="txtNomeResponsavel" required>
-              <label for="txtNomeResponsavel" class="form-label">Nome Completo do Responsável</label>
+              <label for="txtNomeResponsavel" class="form-label">Nome Completo do Responsável *  </label>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <input type="text" class="form-control" id="txtParentesco" required>
-                <label for="txtParentesco" class="form-label">Grau de Parentesco</label>
+                <label for="txtParentesco" class="form-label">Grau de Parentesco *  </label>
               </div>
               <div class="col-md-6 mb-3">
                 <input type="tel" class="form-control" id="txtCelularResponsavel" 
                     placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
-                <label for="txtCelularResponsavel" class="form-label">Celular do Responsável</label>
+                <label for="txtCelularResponsavel" class="form-label">Celular do Responsável *  </label>
+              </div>              
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="txtRGResponsavel" 
+                    placeholder="##.###.###-#" onkeypress="mascara('##.###.###-##',this,event)" maxlength="12" required>
+                <label for="txtRGResponsavel" class="form-label" >RG do Responsável *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="txtCPFResponsavel"
+                    placeholder="###.###.###-##" onkeypress="mascara('###.###.###-##',this,event,true)" 
+                    onblur="validarCPF(erro_txtCPFResponsavel)" maxlength="14" required>
+                    <label for="txtCPFResponsavel" class="form-label">CPF do Responsável *  </label>
+                    <label id="erro_txtCPFResponsavel" class="form-label text-danger"></label>
               </div>
             </div>
-      
+
             <!-- Informações Acadêmicas -->
             <h4 class="text-primary">Informações Acadêmicas</h4>
             <div class="row">
@@ -169,7 +192,7 @@
                   <option value="2">2° Ano</option>
                   <option value="3">3° Ano</option>
                 </select>
-                <label for="txtSerie" class="form-label">Série</label>
+                <label for="txtSerie" class="form-label">Série *  </label>
               </div>
               <div class="col-md-4 mb-3">                
                 <select id="slctTurma" class="custom-select" required>
@@ -178,7 +201,7 @@
                   <option value="B">Turma B</option>
                   <option value="C">Turma C</option>
                 </select>
-                <label for="txtTurma" class="form-label">Turma</label>
+                <label for="txtTurma" class="form-label">Turma *  </label>
               </div>
               <div class="col-md-4 mb-3">
                 <select id="slctTurno" class="custom-select" required>
@@ -186,7 +209,7 @@
                   <option value="matutino">Matutino</option>
                   <option value="vespertino">Vespertino</option>
                 </select>
-                <label for="slctTurno" class="form-label">Turno</label>
+                <label for="slctTurno" class="form-label">Turno *  </label>
               </div>
             </div>
       
@@ -207,7 +230,7 @@
       
       
             <button type="submit" class="btn btn-primary">Finalizar cadastro</button>
-            <button class="btn btn-dark" type="submit" onclick="window.location='./area_Admin.html'">Retornar</button>
+            <button class="btn btn-dark" type="submit" onclick="window.location='./../../admin/area_Admin.html'">Retornar</button>
           </form>
         </section>
       </div>

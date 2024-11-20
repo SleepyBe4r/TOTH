@@ -55,7 +55,7 @@ function mCEP () {
 
 // Validar CPF - Andressa
 
-function validarCPF() {
+function validarCPF(erro_obj) {
     var cpf = event.target.value;
     var ok = 1;
     var add;
@@ -94,14 +94,14 @@ function validarCPF() {
             }
         }
         if (ok == 0) {
-            alert("Ops... Ocorreu um problema... CPF inválido!");
+            erro_obj.innerHTML = "CPF inválido!";
         //   event.target.focus();
         }
     }
 }
 
-function validarEmail() {
-    const email = document.getElementById("txtEmail").value;
+function validarEmail(email_obj, erro_obj) {
+    const email = email_obj.value;
 
     // Regex para cada parte do e-mail
     const temArroba = /@/;
@@ -111,28 +111,108 @@ function validarEmail() {
 
     // Validações específicas
     if (!temArroba.test(email)) {
-      alert("O e-mail deve conter o caractere '@'.");
-      return false;
+        erro_obj.innerHTML = "O e-mail deve conter o caractere '@'.";
+        return false;
     }
 
     if (!antesDoArroba.test(email)) {
-      alert("O e-mail deve conter texto antes do '@'.");
-      return false;
+        erro_obj.innerHTML = "O e-mail deve conter texto antes do '@'.";
+        return false;
     }
 
     if (!aposArroba.test(email)) {
-      alert("O e-mail deve conter um domínio válido após o '@' (por exemplo, exemplo.com).");
-      return false;
+        erro_obj.innerHTML = "O e-mail deve conter um domínio válido após o '@' (por exemplo, exemplo.com).";
+        return false;
     }
 
     if (!dominioValido.test(email)) {
-      alert("O e-mail deve terminar com um domínio válido (por exemplo, '.com').");
+        erro_obj.innerHTML = "O e-mail deve terminar com um domínio válido (por exemplo, '.com').";      
+        return false;
+    }
+
+    erro_obj.innerHTML = "";        
+    return true; // Permite o envio do formulário
+}
+
+function validarSenha(senha_obj, erro_obj) {
+    const senha = senha_obj.value;
+
+    // Critérios de validação
+    const temMinimoOitoCaracteres = /^.{8,}$/;
+    const temLetraMaiuscula = /[A-Z]/;
+    const temLetraMinuscula = /[a-z]/;
+    const temNumero = /[0-9]/;
+    const temCaractereEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+
+    // Validações específicas com alertas
+    if (!temMinimoOitoCaracteres.test(senha)) {
+      erro_obj.innerHTML = "A senha deve ter pelo menos 8 caracteres.";
       return false;
     }
 
-    alert("E-mail válido!");
+    if (!temLetraMaiuscula.test(senha)) {
+      erro_obj.innerHTML = "A senha deve conter pelo menos uma letra maiúscula.";
+      return false;
+    }
+
+    if (!temLetraMinuscula.test(senha)) {
+      erro_obj.innerHTML = "A senha deve conter pelo menos uma letra minúscula.";
+      return false;
+    }
+
+    if (!temNumero.test(senha)) {
+      erro_obj.innerHTML = "A senha deve conter pelo menos um número.";
+      return false;
+    }
+
+    if (!temCaractereEspecial.test(senha)) {
+      erro_obj.innerHTML = "A senha deve conter pelo menos um caractere especial (ex: !@#$%^&*).";
+      return false;
+    }
+
+    erro_obj.innerHTML = "";
     return true; // Permite o envio do formulário
-  }
+}
+
+function validarComfirmarSenha(senha_obj,confirma_senha_obj,erro_obj) {    
+    if(senha_obj.value != confirma_senha_obj.value){
+        erro_obj.innerHTML = "As senhas não coincidem. Por favor, tente novamente.";
+        return false;
+    }
+
+    erro_obj.innerHTML = "";
+    return true; // Permite o envio do formulário
+}
+
+function validarDataNascimentoAluno(data_obj,erro_obj) {
+    const dataNascimento = data_obj.value;
+    
+    if (!dataNascimento) {
+      erro_obj.innerHTML = "Por favor, informe a data de nascimento.";
+      return false;
+    }
+
+    const dataAtual = new Date();
+    const dataNascimentoObj = new Date(dataNascimento);
+
+    // Calculando a diferença de idade
+    let idade = dataAtual.getFullYear() - dataNascimentoObj.getFullYear();
+    const mes = dataAtual.getMonth() - dataNascimentoObj.getMonth();
+    
+    if (mes < 0 || (mes === 0 && dataAtual.getDate() < dataNascimentoObj.getDate())) {
+      idade--;
+    }
+
+    // Verifica se a idade está entre 6 e 14 anos
+    if (idade < 6 || idade > 14) {
+      erro_obj.innerHTML = "A idade do aluno deve estar entre 6 e 14 anos.";
+      return false;
+    }
+
+    // Se passou em todas as validações, envia o formulário
+    erro_obj.innerHTML = "";
+    return true;
+}
 
 /*
 fonte: https://github.com/FlavioALeal/MascaraJS
