@@ -50,60 +50,22 @@
     <!-- Content Start -->
     <div class="container my-5">
       <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3 mb-4">
-          <div class="bg-light shadow rounded p-4">
-            <h4 class="text-primary">Menu</h4>
-            <ul class="list-unstyled">
-              <li><a href="#perfil" class="text-dark"><i class="fas fa-user-cog"></i> Perfil</a></li>
-              <li><a href="#usuarios" class="text-dark"><i class="fas fa-users"></i> Usuários</a></li>
-              <li><a href="#turmas" class="text-dark"><i class="fas fa-chalkboard"></i> Turmas</a></li>
-              <li><a href="#disciplinas" class="text-dark"><i class="fas fa-book"></i> Disciplinas</a></li>
-              <li><a href="#eventos" class="text-dark"><i class="fas fa-calendar-alt"></i> Eventos</a></li>
-              <li><a href="#suporte" class="text-dark"><i class="fas fa-headset"></i> Suporte</a></li>
-            </ul>
-          </div>
-        </div>
-        <!-- Main Section -->
-        <div class="col-md-9">
-          <!-- Perfil Section -->
-          <section id="perfil" class="mb-5">
-            <h4 class="text-primary">Perfil</h4>
-            <p><strong>Nome:</strong> [Nome do Administrador]</p>
-            <p><strong>E-mail:</strong> admin@email.com</p>
-            <p><strong>Telefone:</strong> +55 12 34567-8901</p>
-          </section>
-  
-          <!-- Usuários Section -->
-          <section id="usuarios" class="mb-5">
-            <h4 class="text-primary">Gerenciar Alunos</h4>
-            <p><a href="./../CRUD/aluno/criar_Aluno.html" class="btn btn-primary">Adicionar Aluno</a></p>
-          </section>
-  
-          <!-- Turmas Section -->
-          <section id="turmas" class="mb-5">
-            <h4 class="text-primary">Gerenciar Turmas</h4>
-            <p><a href="gerenciar_turmas.html" class="btn btn-primary">Ver Todas</a></p>
-          </section>
-  
-          <!-- Disciplinas Section -->
-          <section id="disciplinas" class="mb-5">
-            <h4 class="text-primary">Gerenciar Disciplinas</h4>
-            <p><a href="gerenciar_disciplinas.html" class="btn btn-primary">Ver Todas</a></p>
-          </section>
-  
-          <!-- Eventos Section -->
-          <section id="eventos" class="mb-5">
-            <h4 class="text-primary">Gerenciar Eventos</h4>
-            <p><a href="gerenciar_eventos.html" class="btn btn-primary">Ver Todos</a></p>
-          </section>
+        <form id="Lista1">
+            <div>
+                <table class="tabelal">
+                    <thead>
+                        <tr>
+                            <th class="colunal">Professor</th>
+                            <th class="colunal">Turmas</th>
+                            <th class="colunal">Disciplinas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb-bodyl">
 
-          <!-- Eventos Section -->
-          <section id="eventos" class="mb-5">
-            <h4 class="text-primary">Gerenciar Lista de Professores</h4>
-            <p><a href="../lista/gerenciar_lista_pro.html" class="btn btn-primary">Ver Todos</a></p>
-          </section>
-        </div>
+                    </tbody>
+                </table>
+            </div>
+        </form>
       </div>
     </div>
     <!-- Content End -->

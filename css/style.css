@@ -9874,3 +9874,16 @@ a.text-dark:hover, a.text-dark:focus {
   padding: 0;
   list-style-type: none;
 }
+
+.colunal{
+  border: 1px solid orangered;
+}
+
+.tabelal{
+  border: 1px solid black;
+  zoom: 110%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%; 
+  border-collapse: collapse;
+}
