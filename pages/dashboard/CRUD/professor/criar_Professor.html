@@ -289,8 +289,39 @@
   <script src="./../../../../mail/jqBootstrapValidation.min.js"></script>
   <script src="./../../../../mail/contact.js"></script>
 
-  <!-- Template Javascript -->
-  <script src="./../../../../js/validacao.js"></script>
+  <script>
+    function carregarProfessores() {
+    // Função para salvar a disciplina no Local Storage
+    function salvarProfessores(event) {        
+      event.preventDefault();
+
+      // Captura os valores do formulário
+      const nomeProfessor = document.getElementById("txtUsername").value.trim();
+
+      // Cria um objeto com os dados da disciplina
+      const professor = {
+        id: new Date().getTime(),
+        nome: nomeProfessor,
+      };
+
+      // Recupera as disciplinas existentes do Local Storage (se houver)
+      const professores = JSON.parse(localStorage.getItem("professores")) || [];
+
+      // Adiciona a nova disciplina à lista
+      professores.push(professor);
+
+      // Salva a lista atualizada no Local Storage
+      localStorage.setItem("professores", JSON.stringify(professores));
+
+      alert("Professor cadastrado com sucesso!");
+      document.location.href = "./Professor_Index.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        carregarProfessores();
+    });
+  }
+  </script>
 </body>
 
 </html>

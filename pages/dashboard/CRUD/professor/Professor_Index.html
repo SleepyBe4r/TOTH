@@ -48,24 +48,28 @@
     <!-- Navbar End -->
 
     <!-- Content Start -->
-    <div class="container my-5">
-      <div class="row">
-        <form id="Lista1">
-            <div>
+    <div class="col-md-9">
+      <section id="listar_professor" class="mb-5">
+                <h4 class="text-primary">Professores Cadastrados</h4>
                 <table class="tabelal">
                     <thead>
-                        <tr>
-                            <th class="colunal">Professor</th>
-                            <th class="colunal">Turmas</th>
-                            <th class="colunal">Disciplinas</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tb-bodyl">
+                          <tr>
+                              <th class="colunal">Nome do Professor</th>
+                              <th class="colunal">Turmas</th>
+                              <th class="colunal">Disciplinas</th>
+                              <th class="colunal">Ações</th>
+                          </tr>
+                      </thead>
+                      <tbody id="tb-bodyl">
 
-                    </tbody>
-                </table>
-            </div>
-        </form>
+                      </tbody>
+                  </table>
+                  <div>
+                    <input type="button" class="bt btn-danger" value="Excluir Selecionados" id="btnExcluirSelecionados">
+                  </div>
+              </div>
+          </section>
+        </div>
       </div>
     </div>
     <!-- Content End -->
@@ -155,15 +159,39 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="./../../../lib/easing/easing.min.js"></script>
-    <script src="./../../../lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="./../../../lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="./../../../lib/lightbox/js/lightbox.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="./../../../js/main.js"></script>
+    <!-- JavaScript -->
+     <script>
+      function carregarProfessores(){
+        const professores = JSON.parse(localStorage.getItem("professores")) || [];
+        const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+        console.log(turmas);
+        console.log(professores);
+        const tabela = document.querySelector('#tb-body');
+        let html = '';
+        /*agora vamos usar DATA ATTRIBUTES 
+           data- a gente consegue armazenar informações extras na página, e não existe representação visual pra ela*/
+        for (let item of dados){
+            html+=`<tr>
+                      <td class='coluna'><input type='checkbox' 
+                                              data-id=${professor.id}></td>
+                      <td class='coluna'>${professor.nome}</td>
+                      <td class='coluna'>${Turmas}</td>
+                      <td class='coluna'>${professor.disciplina}</td>
+                      <td class='coluna'><a class='btnExcluir' 
+                                            onclick='excluirItem(${professor.id})'>
+                                            &#9746;</a></td>
+                   </tr> `;
+        }
+        tbody.innerHTML = html;
+    }
+    function adicionarItem(){
+      let nomeInput = document.querySelector('#txtUsername');
+      let novoObj={id:new Date().getTime(),nome:nomeInput.value}
+      dados.push(novoObj);
+      montarTabela();
+      nomeInput.value='';
+      nomeInput.focus();
+  }
+     </script>
   </body>
 </html>
