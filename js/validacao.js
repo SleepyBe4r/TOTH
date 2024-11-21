@@ -59,6 +59,8 @@ function validarCPF(erro_obj) {
     var cpf = event.target.value;
     var ok = 1;
     var add;
+    // Limpar qualquer erro anterior
+    erro_obj.innerHTML = "";
     if (cpf != "") {
     cpf = cpf.replace(/[^\d]+/g, '');
     if (cpf.length != 11 ||
@@ -109,6 +111,9 @@ function validarEmail(email_obj, erro_obj) {
     const aposArroba = /@[^\s@]+\./;
     const dominioValido = /\.[^\s@]+$/;
 
+    // Limpar qualquer erro anterior
+    erro_obj.innerHTML = "";
+
     // Validações específicas
     if (!temArroba.test(email)) {
         erro_obj.innerHTML = "O e-mail deve conter o caractere '@'.";
@@ -130,7 +135,6 @@ function validarEmail(email_obj, erro_obj) {
         return false;
     }
 
-    erro_obj.innerHTML = "";        
     return true; // Permite o envio do formulário
 }
 
@@ -143,6 +147,9 @@ function validarSenha(senha_obj, erro_obj) {
     const temLetraMinuscula = /[a-z]/;
     const temNumero = /[0-9]/;
     const temCaractereEspecial = /[!@#$%^&*(),.?":{}|<>]/;
+
+    // Limpar qualquer erro anterior
+    erro_obj.innerHTML = "";
 
     // Validações específicas com alertas
     if (!temMinimoOitoCaracteres.test(senha)) {
@@ -170,23 +177,28 @@ function validarSenha(senha_obj, erro_obj) {
       return false;
     }
 
-    erro_obj.innerHTML = "";
     return true; // Permite o envio do formulário
 }
 
 function validarComfirmarSenha(senha_obj,confirma_senha_obj,erro_obj) {    
+
+    // Limpar qualquer erro anterior
+    erro_obj.innerHTML = "";
+
     if(senha_obj.value != confirma_senha_obj.value){
         erro_obj.innerHTML = "As senhas não coincidem. Por favor, tente novamente.";
         return false;
     }
 
-    erro_obj.innerHTML = "";
     return true; // Permite o envio do formulário
 }
 
 function validarDataNascimentoAluno(data_obj,erro_obj) {
     const dataNascimento = data_obj.value;
     
+    // Limpar qualquer erro anterior
+    erro_obj.innerHTML = "";
+
     if (!dataNascimento) {
       erro_obj.innerHTML = "Por favor, informe a data de nascimento.";
       return false;
@@ -210,7 +222,77 @@ function validarDataNascimentoAluno(data_obj,erro_obj) {
     }
 
     // Se passou em todas as validações, envia o formulário
+    return true;
+}
+
+function validarDataNascimentoAdulto(data_obj,erro_obj) {
+    const dataNascimento = data_obj.value;
+    
+    // Limpar qualquer erro anterior
     erro_obj.innerHTML = "";
+
+    if (!dataNascimento) {
+      erro_obj.innerHTML = "Por favor, informe a data de nascimento.";
+      return false;
+    }
+
+    const dataAtual = new Date();
+    const dataNascimentoObj = new Date(dataNascimento);
+
+    // Calculando a diferença de idade
+    let idade = dataAtual.getFullYear() - dataNascimentoObj.getFullYear();
+    const mes = dataAtual.getMonth() - dataNascimentoObj.getMonth();
+    
+    if (mes < 0 || (mes === 0 && dataAtual.getDate() < dataNascimentoObj.getDate())) {
+      idade--;
+    }
+
+    // Verifica se a idade está acima de 18 anos
+    if (idade < 18) {
+      erro_obj.innerHTML = "A idade deve ser maior de 18 anos.";
+      return false;
+    }
+
+    // Se passou em todas as validações, envia o formulário    
+    return true;
+}
+
+function validarDatasTurma(data_inicio_obj,data_fim_obj,erro_obj) {
+    const dtInicio = data_inicio_obj.value;
+    const dtFim = data_fim_obj.value;
+  
+    // Limpar qualquer erro anterior
+    erro_obj.innerHTML = "";
+  
+    // Verificar se as datas foram preenchidas
+    if (!dtInicio || !dtFim) {
+      erro_obj.innerHTML = "Por favor, preencha ambas as datas (Início e Fim).";
+      return false;
+    }
+  
+    // Converter as datas para objetos Date
+    const dataInicio = new Date(dtInicio);
+    const dataFim = new Date(dtFim);
+    const dataAtual = new Date();
+  
+    // Verificar se as datas são válidas (não são datas inválidas)
+    if (isNaN(dataInicio.getTime()) || isNaN(dataFim.getTime())) {
+      erro_obj.innerHTML = "Por favor, insira datas válidas.";
+      return false;
+    }
+  
+    // Verificar se a data de início é maior que a data de fim
+    if (dataInicio > dataFim) {
+      erro_obj.innerHTML = "A data de início não pode ser posterior à data de fim.";
+      return false;
+    }
+  
+    // Verificar se a data de início ou de fim são anteriores à data atual
+    if (dataInicio < dataAtual || dataFim < dataAtual) {
+      erro_obj.innerHTML = "As datas não podem ser anteriores à data de hoje.";
+      return false;
+    }
+  
     return true;
 }
 
