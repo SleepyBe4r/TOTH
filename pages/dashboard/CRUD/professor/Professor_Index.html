@@ -67,8 +67,8 @@
               <tr>
                 <th><input type="checkbox" id="ckTodos"></th>
                 <th>Nome do Professor</th>
-                <th>Turmas</th>
-                <th>Disciplinas</th>
+                <th>cpf</th>
+                <th>celular</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -110,16 +110,14 @@
         const tabela = document.getElementById('lista_professores');
         let html = '';
 
-        professores.forEach(professor => {
-            const turmas = professor.turno; // A propriedade "turmas" não foi definida, mas você pode adicionar ou modificar
-            const disciplinas = professor.disciplinas.join(', ');
+        professores.forEach(professor => {            
 
             html += `
                 <tr>
                     <td><input type="checkbox" name="check_del" data-id="${professor.id}"></td>
                     <td>${professor.nome}</td>
-                    <td>${turmas}</td>
-                    <td>${disciplinas}</td>
+                    <td>${professor.cpf}</td>
+                    <td>${professor.celular}</td>
                     <td>
                         <button class="btn btn-danger btn-sm" onclick="excluirProfessor('${professor.id}')">Excluir</button>
                     </td>
