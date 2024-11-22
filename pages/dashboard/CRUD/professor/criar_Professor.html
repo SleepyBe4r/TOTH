@@ -290,38 +290,34 @@
   <script src="./../../../../mail/contact.js"></script>
 
   <script>
-    function carregarProfessores() {
-    // Função para salvar a disciplina no Local Storage
-    function salvarProfessores(event) {        
-      event.preventDefault();
+    // Função que será chamada ao submeter o formulário
+    document.getElementById('professorForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio do formulário de forma tradicional
 
-      // Captura os valores do formulário
-      const nomeProfessor = document.getElementById("txtUsername").value.trim();
+        // Obter os valores do formulário
+        const nome = document.getElementById('nome').value;
+        const disciplinas = document.getElementById('disciplinas').value;
+        const turno = document.getElementById('turno').value;
+        const email = document.getElementById('email').value;
 
-      // Cria um objeto com os dados da disciplina
-      const professor = {
-        id: new Date().getTime(),
-        nome: nomeProfessor,
-      };
+        // Criar um item de lista com os dados do professor
+        const professorItem = document.createElement('li');
+        professorItem.classList.add('professor-item');
+        professorItem.innerHTML = `
+            <strong>${nome}</strong><br>
+            Disciplina(s): ${disciplinas}<br>
+            Turno: ${turno}<br>
+            Email: ${email}
+        `;
 
-      // Recupera as disciplinas existentes do Local Storage (se houver)
-      const professores = JSON.parse(localStorage.getItem("professores")) || [];
+        // Adicionar o item de lista à lista de professores
+        document.getElementById('professorList').appendChild(professorItem);
 
-      // Adiciona a nova disciplina à lista
-      professores.push(professor);
-
-      // Salva a lista atualizada no Local Storage
-      localStorage.setItem("professores", JSON.stringify(professores));
-
-      alert("Professor cadastrado com sucesso!");
-      document.location.href = "./Professor_Index.html";
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        carregarProfessores();
+        // Limpar o formulário após o envio
+        document.getElementById('professorForm').reset();
     });
-  }
-  </script>
+</script>
+  
 </body>
 
 </html>
