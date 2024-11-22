@@ -65,7 +65,26 @@
         <section id="form_notas" class="mb-5">
           <h4 class="text-primary">Cadastrar Admin</h4>
           <form>
-            <!-- Dados Pessoais do Aluno -->
+             <h4 class="text-primary">Dados de Login</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="txtUsername" required>
+                <label for="txtUsername" class="form-label">Nome de Usuário *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="password" class="form-control" id="txtPassword" 
+                    onblur="validarSenha(this,erro_txtPassword)" required>
+                <label for="txtPassword" class="form-label">Senha *  </label>
+                <label id="erro_txtPassword" class="form-label text-danger"></label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="password" class="form-control" id="txtConfirmPassword" 
+                    onblur="validarComfirmarSenha(txtPassword,this,erro_txtConfirmPassword)" required>
+                <label for="txtConfirmPassword" class="form-label">Confirmar Senha *  </label>
+                <label id="erro_txtConfirmPassword" class="form-label text-danger"></label>
+              </div>
+            </div>
+            <!-- Dados Pessoais do Admin -->
             <h4>Dados Pessoais</h4>
             <div class="mb-3">
               <input type="text" class="form-control" id="txtNomeAluno" required>
@@ -74,7 +93,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <input type="date" class="form-control" id="dtNascimento" required>
-                <label for="dtNascimento" class="form-label">Data de Nascimento</label>
+                <label id="erro_dtNascimento" class="form-label text-danger"></label>
               </div>
               <div class="col-md-6 mb-3">
                 <select id="slctSexo" class="custom-select" required>
@@ -98,12 +117,16 @@
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtRG">
-                <label for="txtRG" class="form-label">RG</label>
+                <input type="text" class="form-control" id="txtRG"
+                  placeholder="##.###.###-#" onkeypress="mascara('##.###.###-##',this,event)" maxlength="12" required>             
+                <label for="txtRG" class="form-label">RG * </label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtCPF">
-                <label for="txtCPF" class="form-label">CPF</label>
+                <input type="text" class="form-control" id="txtCPF"
+                  placeholder="###.###.###-##" onkeypress="mascara('###.###.###-##',this,event,true)" 
+                    onblur="validarCPF(erro_txtCPF)" maxlength="14" required>
+                <label for="txtCPF" class="form-label">CPF * </label>
+                <label id="erro_txtCPF" class="form-label text-danger"></label>
               </div>
             </div>
       
@@ -115,16 +138,20 @@
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="tel" class="form-control" id="txtTelefone" required>
-                <label for="txtTelefone" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="txtTelefone" required
+                placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
+                <label for="txtTelefone" class="form-label">Telefone *</label>
+                
               </div>
               <div class="col-md-6 mb-3">
-                <input type="email" class="form-control" id="txtEmail" required>
-                <label for="txtEmail" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="txtEmail" required 
+                onblur="validarEmail(this,error_txtEmail)" required>
+                <label for="txtEmail" class="form-label">E-mail *</label>
+                <label id="error_txtEmail" class="form-label text-danger"></label>
               </div>
             </div>
       
-            <button type="submit" onclick="alert('Admin adicionado com sucesso'); window.location='./area_Admin.html'"
+            <button type="submit" window.location='./area_Admin.html'"
               class="btn btn-primary">Finalizar cadastro</button>
             <button class="btn btn-dark" type="submit" onclick="window.location='./area_Admin.html'">Retornar</button>
           </form>
