@@ -63,7 +63,7 @@
         <!-- Formulário de Lançamento -->
         <section id="form_aluno" class="mb-5">
           <h4 class="text-primary">Cadastrar Aluno</h4>
-          <form>
+          <form  onsubmit="salvarAluno(event)">
             <h4 class="text-primary">Dados de Login</h4>
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -192,7 +192,7 @@
                   <option value="2">2° Ano</option>
                   <option value="3">3° Ano</option>
                 </select>
-                <label for="txtSerie" class="form-label">Série *  </label>
+                <label for="slctSerie" class="form-label">Série *  </label>
               </div>
               <div class="col-md-4 mb-3">                
                 <select id="slctTurma" class="custom-select" required>
@@ -352,6 +352,35 @@
 
   <!-- Template Javascript -->
   <script src="./../../../../js/validacao.js"></script>
+  <script>
+    // Função para salvar os dados do formulário no Local Storage
+    function salvarAluno(event) {
+      event.preventDefault(); // Previne o envio padrão do formulário
+  
+      // Captura os valores dos campos
+      const nomeAluno = document.getElementById("txtNomeAluno").value.trim();
+      const serie = document.getElementById("slctSerie").value;
+  
+      // Cria um objeto com os dados
+      const aluno = {
+        id: new Date().getTime(),
+        nome: nomeAluno,
+        serie: serie,
+      };
+  
+      // Recupera alunos existentes do Local Storage (se houver)
+      const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+  
+      // Adiciona a nova turma à lista
+      alunos.push(aluno);
+  
+      // Salva a lista atualizada no Local Storage
+      localStorage.setItem("alunos", JSON.stringify(alunos));
+  
+      alert("Aluno cadastrada com sucesso!");      
+      document.location.href = "./aluno_index.html";      
+    }
+  </script>
 </body>
 
 </html>
