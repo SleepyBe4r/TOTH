@@ -63,7 +63,7 @@
         <!-- Formulário de Lançamento -->
         <section id="form_notas" class="mb-5">
           <h4 class="text-primary">Cadastrar Professor</h4>
-          <form>
+          <form onsubmit="salvarProfessor(event)">
             <h4 class="text-primary">Dados de Login</h4>
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -280,42 +280,44 @@
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <script src="./../../../../lib/easing/easing.min.js"></script>
-  <script src="./../../../../lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="./../../../../lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="./../../../../lib/lightbox/js/lightbox.min.js"></script>
+  
 
   <!-- Contact Javascript File -->
   <script src="./../../../../mail/jqBootstrapValidation.min.js"></script>
   <script src="./../../../../mail/contact.js"></script>
 
+  <script src="./../../../../js/validacao.js"></script>
   <script>
     // Função que será chamada ao submeter o formulário
-    document.getElementById('professorForm').addEventListener('submit', function(event) {
+    function salvarProfessor(event){
         event.preventDefault(); // Impede o envio do formulário de forma tradicional
 
         // Obter os valores do formulário
-        const nome = document.getElementById('nome').value;
-        const disciplinas = document.getElementById('disciplinas').value;
-        const turno = document.getElementById('turno').value;
-        const email = document.getElementById('email').value;
-
-        // Criar um item de lista com os dados do professor
-        const professorItem = document.createElement('li');
-        professorItem.classList.add('professor-item');
-        professorItem.innerHTML = `
-            <strong>${nome}</strong><br>
-            Disciplina(s): ${disciplinas}<br>
-            Turno: ${turno}<br>
-            Email: ${email}
-        `;
-
-        // Adicionar o item de lista à lista de professores
-        document.getElementById('professorList').appendChild(professorItem);
-
-        // Limpar o formulário após o envio
-        document.getElementById('professorForm').reset();
-    });
+        const nome = document.getElementById('txtNomeProfessor').value;
+        const cpf = document.getElementById('txtCPF').value;
+        const celular = document.getElementById('txtCelular').value;
+        const email = document.getElementById('txtEmail').value;
+        
+        const professor = {
+        id: new Date().getTime(),
+        nome: nome,
+        cpf: cpf,
+        celular: celular,
+        email: email,
+      };
+  
+      // Recupera turmas existentes do Local Storage (se houver)
+      const professores = JSON.parse(localStorage.getItem("professores")) || [];
+  
+      // Adiciona a nova turma à lista
+      professores.push(professor);
+  
+      // Salva a lista atualizada no Local Storage
+      localStorage.setItem("professores", JSON.stringify(professores));
+  
+      alert("Turma cadastrada com sucesso!");      
+      document.location.href = "./Professor_Index.html";      
+    }
 </script>
   
 </body>
