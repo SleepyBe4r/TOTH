@@ -186,7 +186,7 @@
       const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
 
       const admin = {
-        id: new Date().getTime(),
+        id: 1,
         usuario: "admin",
         senha: "Admin123$",
         nome: "João da Silva",
@@ -195,94 +195,123 @@
         nacionalidade: "Brasileiro",
         naturalidade: "São Paulo, SP",
         rg: "12.345.678-9",
-        cpf: "123.456.789-09", // CPF válido
+        cpf: "123.456.789-09",
         endereço: "Rua das Flores, 123, Bairro Centro, São Paulo, SP",
         telefone: "(11) 98765-4321",
         email: "joao.silva@email.com",
         saude: {
-          alergias: "Nenhuma", // Alergias do admin
-          medicamentos: "Nenhum medicamento em uso", // Medicamentos que o admin usa (caso tenha)
-          condicoesEspeciais: "Nenhuma condição especial de saúde" // Condições especiais de saúde
+          alergias: "Nenhuma",
+          medicamentos: "Nenhum medicamento em uso",
+          condicoesEspeciais: "Nenhuma condição especial de saúde"
         }
       };
 
       const turma = {
-        id: new Date().getTime(), // Exemplo: 1698388595731 (gerado automaticamente)
-        nome: "Turma A", // Nome da turma (exemplo: "Turma A")
-        ano: "2024", // Ano letivo da turma (exemplo: 2024)
-        serie: "2º Ano", // Série que a turma está cursando (exemplo: "1º Ano")
-        professor: "Mariana Silva", // Nome do professor responsável pela turma (exemplo: "Mariana Silva")
-        dataInicio: "2024-02-01", // Data de início das aulas no formato 'YYYY-MM-DD'
-        turno: "Matutino", // Turno escolar (exemplo: "Matutino", "Vespertino")
-        dataFim: "2024-12-15", // Data de término das aulas no formato 'YYYY-MM-DD'
+        id: 1,
+        nome: "Turma A",
+        ano: "2024",
+        serie: "2º Ano",
+        professor: "Mariana Silva",
+        dataInicio: "2024-02-01",
+        turno: "Matutino",
+        dataFim: "2024-12-15",
       };
-      
+
       const aluno = {
-        id: new Date().getTime(), // Exemplo: 1698388595731
-        usuario: "aluno", // Nome de usuário do aluno
-        senha: "Aluno123$", // Senha (em um caso real, sempre deve ser criptografada)
-        nome: "Lucas Oliveira", // Nome completo do aluno
-        nascimento: "2004-12-05", // Data de nascimento no formato 'YYYY-MM-DD'
-        nacionalidade: "Brasileiro", // Nacionalidade
-        naturalidade: "Rio de Janeiro", // Naturalidade (cidade de nascimento)
-        rg: "34.567.890-1", // RG do aluno (documento de identidade)
-        cpf: "111.222.333-44", // CPF do aluno
-        endereco: "Avenida Atlântica, 455, Copacabana", // Endereço completo
-        celular: "(21) 99876-5432", // Celular do aluno
-        email: "lucas.oliveira@email.com", // E-mail do aluno
+        id: 1,
+        usuario: "aluno",
+        senha: "Aluno123$",
+        nome: "Lucas Oliveira",
+        nascimento: "2004-12-05",
+        nacionalidade: "Brasileiro",
+        naturalidade: "Rio de Janeiro",
+        rg: "34.567.890-1",
+        cpf: "111.222.333-44",
+        endereco: "Avenida Atlântica, 455, Copacabana",
+        celular: "(21) 99876-5432",
+        email: "lucas.oliveira@email.com",
         responsavel: {
-          nome: "Ana Oliveira", // Nome do responsável
-          parentesco: "Mãe", // Grau de parentesco
-          celular: "(21) 91234-5678", // Celular do responsável
-          rg: "45.678.901-2", // RG do responsável
-          cpf: "222.333.444-55" // CPF do responsável
+          nome: "Ana Oliveira",
+          parentesco: "Mãe",
+          celular: "(21) 91234-5678",
+          rg: "45.678.901-2",
+          cpf: "222.333.444-55"
         },
         ano: "2024",
-        serie: "2º Ano", // Série escolar do aluno
-        turma: "Turma A", // Identificação da turma (exemplo: "A", "B", etc.)
-        turno: "Matutino", // Turno escolar (exemplo: "Matutino", "Vespertino")
+        serie: "2º Ano",
+        turma: "Turma A",
+        turno: "Matutino",
         saude: {
-          alergias: "Pólen", // Alergias conhecidas
-          medicamentos: "Antialérgico", // Medicamentos em uso
-          condicoesEspeciais: "Asma leve", // Condições especiais de saúde
+          alergias: "Pólen",
+          medicamentos: "Antialérgico",
+          condicoesEspeciais: "Asma leve",
         }
       };
 
       const professor = {
-        id: new Date().getTime(), // Exemplo: 1698388595731 (gerado automaticamente)
-        usuario: "professor", // Nome de usuário para o professor
-        senha: "Professor123$", // Senha do professor (lembre-se de criptografar em um sistema real)
-        nome: "Mariana Silva", // Nome completo do professor
-        nascimento: "1985-03-22", // Data de nascimento no formato 'YYYY-MM-DD'
-        sexo: "Feminino", // Sexo do professor
-        nacionalidade: "Brasileira", // Nacionalidade do professor
-        naturalidade: "São Paulo", // Naturalidade (cidade onde nasceu)
-        rg: "12.345.678-9", // Número do RG (documento de identidade)
-        cpf: "123.456.789-00", // Número do CPF (documento fiscal)
-        endereco: "Rua da Consolação, 1234, São Paulo", // Endereço completo
-        celular: "(11) 98765-4321", // Número de celular do professor
-        email: "mariana.silva@escola.com", // E-mail de contato do professor
+        id: 1,
+        usuario: "professor",
+        senha: "Professor123$",
+        nome: "Mariana Silva",
+        nascimento: "1985-03-22",
+        sexo: "Feminino",
+        nacionalidade: "Brasileira",
+        naturalidade: "São Paulo",
+        rg: "12.345.678-9",
+        cpf: "123.456.789-00",
+        endereco: "Rua da Consolação, 1234, São Paulo",
+        celular: "(11) 98765-4321",
+        email: "mariana.silva@escola.com",
         saude: {
-          alergias: "Nenhuma", // Alergias do professor
-          medicamentos: "Nenhum medicamento em uso", // Medicamentos que o professor usa (caso tenha)
-          condicoesEspeciais: "Nenhuma condição especial de saúde" // Condições especiais de saúde
+          alergias: "Nenhuma",
+          medicamentos: "Nenhum medicamento em uso",
+          condicoesEspeciais: "Nenhuma condição especial de saúde"
         }
       };
 
-      admins.push(admin);
-      localStorage.setItem("admins", JSON.stringify(admins));
+      // Variável para mensagens de criação
+      let mensagens = [];
 
-      turmas.push(turma);
-      localStorage.setItem("turmas", JSON.stringify(turmas));
+      // Adiciona admin
+      let adminExistente = admins.find(a => a.id === admin.id);
+      if (!adminExistente) {
+        admins.push(admin);
+        localStorage.setItem("admins", JSON.stringify(admins));
+        mensagens.push(`Admin '${admin.nome}' foi criado.`);
+      }
 
-      alunos.push(aluno);
-      localStorage.setItem("alunos", JSON.stringify(alunos));
+      // Adiciona turma
+      let turmaExistente = turmas.find(a => a.id === turma.id);
+      if (!turmaExistente) {
+        turmas.push(turma);
+        localStorage.setItem("turmas", JSON.stringify(turmas));
+        mensagens.push(`Turma '${turma.nome}' foi criada.`);
+      }
 
-      professores.push(professor);
-      localStorage.setItem("professores", JSON.stringify(professores));
+      // Adiciona aluno
+      let alunoExistente = alunos.find(a => a.id === aluno.id);
+      if (!alunoExistente) {
+        alunos.push(aluno);
+        localStorage.setItem("alunos", JSON.stringify(alunos));
+        mensagens.push(`Aluno '${aluno.nome}' foi criado.`);
+      }
 
-      alert("usuarios inicializados");
+      // Adiciona professor
+      let professorExistente = professores.find(a => a.id === professor.id);
+      if (!professorExistente) {
+        professores.push(professor);
+        localStorage.setItem("professores", JSON.stringify(professores));
+        mensagens.push(`Professor '${professor.nome}' foi criado.`);
+      }
+
+      // Exibe mensagem com os itens criados
+      if (mensagens.length > 0) {
+        alert(mensagens.join("\n"));
+      } else {
+        alert("Nenhum novo usuário foi criado, pois todos já existiam.");
+      }
     }
+
     function logarAluno(e) {
       e.preventDefault(); 
       const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
