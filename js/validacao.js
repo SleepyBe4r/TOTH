@@ -17,16 +17,12 @@ function mMoeda () {
     // event.target.value = v;
 }
 
-function mCpf() {
-    var cpf = event.target.value;
-    cpf = cpf.replace(/\D/g, "")
-    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-    event.target.value = cpf;
-}
+f 
 
 function mTel () {
+
+  
+
     var tel = event.target.value;
     tel = tel.replace(/\D/g, "")
     tel = tel.replace(/^(\d)/, "($1")
@@ -42,7 +38,8 @@ function mTel () {
     } else if (tel.length > 12) {
     tel = tel.replace(/(.{4})$/, "-$1")
     }
-    event.target.value = tel;
+   
+
 }
         
 function mCEP () {
@@ -52,6 +49,7 @@ function mCEP () {
     cep = cep.replace(/.(\d{3})(\d)/, ".$1-$2")
     event.target.value = cep;
 }
+
 
 // Validar CPF - Andressa
 
@@ -97,7 +95,7 @@ function validarCPF(erro_obj) {
         }
         if (ok == 0) {
             erro_obj.innerHTML = "CPF inválido!";
-        //   event.target.focus();
+            event.target.focus();      
         }
     }
 }
@@ -117,21 +115,25 @@ function validarEmail(email_obj, erro_obj) {
     // Validações específicas
     if (!temArroba.test(email)) {
         erro_obj.innerHTML = "O e-mail deve conter o caractere '@'.";
+        email_obj.focus();
         return false;
     }
 
     if (!antesDoArroba.test(email)) {
         erro_obj.innerHTML = "O e-mail deve conter texto antes do '@'.";
+        email_obj.focus();
         return false;
     }
 
     if (!aposArroba.test(email)) {
         erro_obj.innerHTML = "O e-mail deve conter um domínio válido após o '@' (por exemplo, exemplo.com).";
+        email_obj.focus();
         return false;
     }
 
     if (!dominioValido.test(email)) {
-        erro_obj.innerHTML = "O e-mail deve terminar com um domínio válido (por exemplo, '.com').";      
+        erro_obj.innerHTML = "O e-mail deve terminar com um domínio válido (por exemplo, '.com').";
+        email_obj.focus();      
         return false;
     }
 
@@ -154,31 +156,39 @@ function validarSenha(senha_obj, erro_obj) {
     // Validações específicas com alertas
     if (!temMinimoOitoCaracteres.test(senha)) {
       erro_obj.innerHTML = "A senha deve ter pelo menos 8 caracteres.";
+      senha_obj.focus();
       return false;
+      
     }
 
     if (!temLetraMaiuscula.test(senha)) {
       erro_obj.innerHTML = "A senha deve conter pelo menos uma letra maiúscula.";
+      senha_obj.focus();
       return false;
+     
     }
 
     if (!temLetraMinuscula.test(senha)) {
       erro_obj.innerHTML = "A senha deve conter pelo menos uma letra minúscula.";
+      senha_obj.focus();
       return false;
     }
 
     if (!temNumero.test(senha)) {
       erro_obj.innerHTML = "A senha deve conter pelo menos um número.";
+      senha_obj.focus();
       return false;
     }
 
     if (!temCaractereEspecial.test(senha)) {
       erro_obj.innerHTML = "A senha deve conter pelo menos um caractere especial (ex: !@#$%^&*).";
+      senha_obj.focus();
       return false;
     }
 
     return true; // Permite o envio do formulário
 }
+
 
 function validarComfirmarSenha(senha_obj,confirma_senha_obj,erro_obj) {    
 
@@ -187,6 +197,7 @@ function validarComfirmarSenha(senha_obj,confirma_senha_obj,erro_obj) {
 
     if(senha_obj.value != confirma_senha_obj.value){
         erro_obj.innerHTML = "As senhas não coincidem. Por favor, tente novamente.";
+        confirma_senha_obj.focus();
         return false;
     }
 
@@ -201,7 +212,8 @@ function validarDataNascimentoAluno(data_obj,erro_obj) {
 
     if (!dataNascimento) {
       erro_obj.innerHTML = "Por favor, informe a data de nascimento.";
-      return false;
+      data_obj.focus();
+      return false; 
     }
 
     const dataAtual = new Date();
@@ -218,6 +230,7 @@ function validarDataNascimentoAluno(data_obj,erro_obj) {
     // Verifica se a idade está entre 6 e 14 anos
     if (idade < 6 || idade > 14) {
       erro_obj.innerHTML = "A idade do aluno deve estar entre 6 e 14 anos.";
+      data_obj.focus();
       return false;
     }
 
@@ -233,6 +246,7 @@ function validarDataNascimentoAdulto(data_obj,erro_obj) {
 
     if (!dataNascimento) {
       erro_obj.innerHTML = "Por favor, informe a data de nascimento.";
+      data_obj.focus();
       return false;
     }
 
@@ -250,6 +264,7 @@ function validarDataNascimentoAdulto(data_obj,erro_obj) {
     // Verifica se a idade está acima de 18 anos
     if (idade < 18) {
       erro_obj.innerHTML = "A idade deve ser maior de 18 anos.";
+      data_obj.focus();
       return false;
     }
 
@@ -295,6 +310,8 @@ function validarDatasTurma(data_inicio_obj,data_fim_obj,erro_obj) {
   
     return true;
 }
+
+
 
 /*
 fonte: https://github.com/FlavioALeal/MascaraJS
@@ -342,5 +359,6 @@ function mascara(m,t,e){
     }
     if(cursorfixo && !livre)cursor--;
         t.setSelectionRange(cursor, cursor);
+        
 }
         

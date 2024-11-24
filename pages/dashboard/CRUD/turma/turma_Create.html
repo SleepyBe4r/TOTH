@@ -88,10 +88,6 @@
                   <option value="3º Ano">3º Ano</option>
                   <option value="4º Ano">4º Ano</option>
                   <option value="5º Ano">5º Ano</option>
-                  <option value="6º Ano">6º Ano</option>
-                  <option value="7º Ano">7º Ano</option>
-                  <option value="8º Ano">8º Ano</option>
-                  <option value="9º Ano">9º Ano</option>
                 </select>
                 <label for="slctSerie" class="form-label">Série *  </label>
               </div>
@@ -115,16 +111,18 @@
             <h4 class="text-primary">Professor Responsável</h4>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtProfessorNome" required>
-                <label for="txtProfessorNome" class="form-label">Nome do Professor *  </label>
+                <select id="slctProfessor" class="form-control" onchange="carregarEmail(this, txtProfessorEmail)" required>
+                  
+                  <!-- Professores serão carregadas automaticamente -->
+                </select>
+                <label for="slctProfessor" class="form-label">Nome do Professor *</label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" placeholder="email@exemplo.com" required>
-                <label for="txtEmail" class="form-label">E-mail do Professor *  </label>
-                <label id="error_txtEmail" class="form-label text-danger"></label>
+                <input type="email" class="form-control" id="txtProfessorEmail" placeholder="Selecione o Professor" disabled>
+                <label for="txtProfessorEmail" class="form-label">E-mail do Professor</label>
+                <label id="error_txtProfessorEmail" class="form-label text-danger"></label>
               </div>
             </div>
-
             <!-- Botões -->
             <button type="submit" class="btn btn-primary">Finalizar cadastro</button>
             <button class="btn btn-dark" type="submit" onclick="window.location='./../../admin/area_Admin.html'">Retornar</button>
@@ -152,7 +150,31 @@
   <!-- Contact Javascript File -->
   <script src="./../../../../js/validacao.js"></script>
   <script>
-    // Função para salvar os dados do formulário no Local Storage
+    let professor_list = [];
+    
+    function carregarprofessores() {
+      const professores = JSON.parse(localStorage.getItem('professores')) || [];
+      const professor_slct = document.querySelector("#slctProfessor");
+      let html = `<option value="" selected disabled>Selecione o Professor</option>`;
+      professores.forEach(e => {
+          html += `<option value="${e.id}">${e.nome}</option>`;
+          professor_list.push( {
+            id: e.id,
+            nome: e.nome,
+            cpf: e.cpf,
+            celular: e.celular,
+            email: e.email,
+          });
+      });
+      professor_slct.innerHTML = html;
+    }
+
+    function carregarEmail(slct, input) {  
+      professor_list.forEach(e => {
+          if(e.id == slct.value) input.value = e.email;
+      });
+    }
+
     function salvarTurma(event) {
       event.preventDefault(); // Previne o envio padrão do formulário
   
@@ -188,6 +210,10 @@
       alert("Turma cadastrada com sucesso!");      
       document.location.href = "./turma_Index.html";      
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+       carregarprofessores();
+    });
   </script>
   
 </body>

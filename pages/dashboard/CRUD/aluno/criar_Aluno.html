@@ -186,22 +186,22 @@
             <h4 class="text-primary">Informações Acadêmicas</h4>
             <div class="row">
               <div class="col-md-4 mb-3">                
-                <select id="slctSerie" class="custom-select" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option value="1">1° Ano</option>
-                  <option value="2">2° Ano</option>
-                  <option value="3">3° Ano</option>
+                <select id="slctSerie" class="custom-select" onchange="carregarTurmas(this, slctTurma)" required>
+                  <option value="" selected disabled>Selecione a Série</option>
+                  <option value="1º Ano">1º Ano</option>
+                  <option value="2º Ano">2º Ano</option>
+                  <option value="3º Ano">3º Ano</option>
+                  <option value="4º Ano">4º Ano</option>
+                  <option value="5º Ano">5º Ano</option>
                 </select>
                 <label for="slctSerie" class="form-label">Série *  </label>
               </div>
               <div class="col-md-4 mb-3">                
-                <select id="slctTurma" class="custom-select" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option value="A">Turma A</option>
-                  <option value="B">Turma B</option>
-                  <option value="C">Turma C</option>
+                <select id="slctTurma" class="form-control" required>
+                  <option value="" selected disabled>Selecione a Série</option>
+                  <!-- Turmas serão carregadas automaticamente -->
                 </select>
-                <label for="txtTurma" class="form-label">Turma *  </label>
+                <label for="slctTurma" class="form-label">Turma *</label>
               </div>
               <div class="col-md-4 mb-3">
                 <select id="slctTurno" class="custom-select" required>
@@ -268,6 +268,16 @@
   <!-- Template Javascript -->
   <script src="./../../../../js/validacao.js"></script>
   <script>
+    function carregarTurmas(slct, input) {
+      const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+      const turma_slct = document.querySelector("#slctTurma");
+      let html = `<option value="" selected disabled>Selecione a Turma</option>`;
+      turmas.forEach(e => {
+        if(slct.value == e.serie) html += `<option value="${e.id}">${e.nome}</option>`;
+      });
+      if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;
+      turma_slct.innerHTML = html;
+    }
     // Função para salvar os dados do formulário no Local Storage
     function salvarAluno(event) {
       event.preventDefault(); // Previne o envio padrão do formulário
@@ -295,6 +305,7 @@
       alert("Aluno cadastrada com sucesso!");      
       document.location.href = "./aluno_index.html";      
     }
+    
   </script>
 </body>
 
