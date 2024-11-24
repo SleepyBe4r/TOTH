@@ -24,7 +24,7 @@
   <link href="./../../../../css/style.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="body-grid">
   <!-- Navbar Start -->
   <div class="container-fluid bg-light shadow">
     <nav class="navbar navbar-expand-lg navbar-light py-3 px-5">
@@ -90,7 +90,7 @@
 
   <!-- Footer Start -->
   <div class="container-fluid bg-secondary text-white mt-5 py-1 px-sm-3 px-md-5"
-  style="position: fixed; bottom: 0;">
+  style="position: relative; bottom: 0;">
     <div class="row pt-5 justify-content-center" >
       <div class="col-lg-3 col-md-6 mb-5" >
         <a href="./../../../../index.html" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0"
@@ -104,16 +104,15 @@
 
   <!-- JavaScript -->
   <script>
+    let disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
+    const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+    const tabela = document.getElementById("lista_disciplinas");
+
     function carregarDisciplinas() {
-      const disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
-      const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
-      console.log(turmas);
-      console.log(disciplinas);
-      const tabela = document.getElementById("lista_disciplinas");
       let html = "";
       disciplinas.forEach(disciplina => {
-        const turma = turmas.find(t => t.id === parseInt(disciplina.turma));
-        const nomeTurma = turma ? turma.nome : "Turma não encontrada";
+        let turma = turmas.find(t => t.id === parseInt(disciplina.turma));
+        let nomeTurma = turma ? turma.nome : "Turma não encontrada";
         html += `
           <tr>
             <td><input type="checkbox" name="check_del" data-id="${disciplina.id}"></td>
@@ -130,21 +129,29 @@
     }
 
     function excluirDisciplina(id) {
-      const disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
-      const atualizadas = disciplinas.filter(disciplina => disciplina.id !== id);
-      localStorage.setItem("disciplinas", JSON.stringify(atualizadas));
+      localStorage.removeItem("disciplinas");
+      let lista_aux = [];
+      
+      disciplinas.forEach(e => {
+          if (id != e.id) {
+              lista_aux.push(e);
+          }
+      });
+
+      localStorage.setItem('disciplinas', JSON.stringify(lista_aux));
+      disciplinas = JSON.parse(localStorage.getItem('disciplinas')) || [];
       carregarDisciplinas();
     }
 
     function excluirSelecionados() {
-      const checkboxes = document.querySelectorAll("input[name='check_del']:checked");
+      let checkboxes = document.querySelectorAll("input[name='check_del']:checked");
       checkboxes.forEach(checkbox => excluirDisciplina(Number(checkbox.dataset.id)));
       document.getElementById("ckTodos").checked = false;
     }
 
     function selecionarTodos() {
-      const checkboxes = document.querySelectorAll("input[name='check_del']");
-      const selecionarTodos = document.getElementById("ckTodos").checked;
+      let checkboxes = document.querySelectorAll("input[name='check_del']");
+      let selecionarTodos = document.getElementById("ckTodos").checked;
       checkboxes.forEach(checkbox => (checkbox.checked = selecionarTodos));
     }
 

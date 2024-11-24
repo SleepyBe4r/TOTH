@@ -220,18 +220,42 @@
         }
 
         // Obter os valores do formulário
+        const usuario = document.getElementById("txtUsername").value.trim();
+        const senha = document.getElementById("txtPassword").value.trim();
         const nome = document.getElementById('txtNomeProfessor').value;
-        const cpf = document.getElementById('txtCPF').value;
-        const celular = document.getElementById('txtCelular').value;
-        const email = document.getElementById('txtEmail').value;
+        const nascimento = document.getElementById("dtNascimento").value.trim();
+        const sexo = document.getElementById("slctSexo").value.trim();
+        const nacionalidade = document.getElementById("txtNacionalidade").value.trim();
+        const naturalidade = document.getElementById("txtNaturalidade").value.trim();
+        const rg = document.getElementById("txtRG").value.trim();
+        const cpf = document.getElementById("txtCPF").value.trim();
+        const endereco = document.getElementById("txtEndereco").value.trim();
+        const celular = document.getElementById("txtCelular").value.trim();
+        const email = document.getElementById("txtEmail").value.trim();
+        const alergias = document.getElementById("txtAlergias").value.trim();
+        const medicamentos = document.getElementById("txtMedicamentos").value.trim();
+        const condicoesSaude = document.getElementById("txtCondicoesSaude").value.trim();
         
         const professor = {
-        id: new Date().getTime(),
-        nome: nome,
-        cpf: cpf,
-        celular: celular,
-        email: email,
-      };
+          id: new Date().getTime(),
+          usuario: usuario,
+          senha: senha,
+          nome: nome,
+          nascimento: nascimento,
+          sexo: sexo,
+          nacionalidade: nacionalidade,
+          naturalidade: naturalidade,
+          rg: rg,
+          cpf: cpf,
+          endereco: endereco,
+          celular: celular,
+          email: email,
+          saude: {
+            alergias: alergias,
+            medicamentos: medicamentos,
+            condicoesEspeciais: condicoesSaude
+          }
+        };
   
       // Recupera turmas existentes do Local Storage (se houver)
       const professores = JSON.parse(localStorage.getItem("professores")) || [];

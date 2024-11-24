@@ -152,6 +152,21 @@
                 <label id="error_txtEmail" for="txtEmail" class="form-label text-danger erro"></label>
               </div>
             </div>
+            
+             <!-- Informações sobre Saúde -->
+             <h4>Informações sobre Saúde</h4>
+             <div class="mb-3">
+               <input type="text" class="form-control" id="txtAlergias">
+               <label for="txtAlergias" class="form-label">Alergias ou Restrições Alimentares</label>
+             </div>
+             <div class="mb-3">
+               <input type="text" class="form-control" id="txtMedicamentos">
+               <label for="txtMedicamentos" class="form-label">Uso de Medicamentos</label>
+             </div>
+             <div class="mb-3">
+               <input type="text" class="form-control" id="txtCondicoesSaude">
+               <label for="txtCondicoesSaude" class="form-label">Condições de Saúde Especiais</label>
+             </div>
       
             <button type="submit" window.location='./area_Admin.html'"
               class="btn btn-primary">Finalizar cadastro</button>
@@ -212,12 +227,42 @@
       }
 
       // Captura os valores dos campos
-      const nomeAdmin = document.getElementById("txtNomeAdmin").value.trim();
-  
+      const usuario = document.getElementById("txtUsername").value.trim();
+      const senha = document.getElementById("txtPassword").value.trim();
+      const nome = document.getElementById("txtNomeAdmin").value.trim();
+      const nascimento = document.getElementById("dtNascimento").value.trim();
+      const sexo = document.getElementById("slctSexo").value.trim();
+      const nacionalidade = document.getElementById("txtNacionalidade").value.trim();
+      const naturalidade = document.getElementById("txtNaturalidade").value.trim();
+      const rg = document.getElementById("txtRG").value.trim();
+      const cpf = document.getElementById("txtCPF").value.trim();
+      const endereço = document.getElementById("txtEndereco").value.trim();
+      const telefone = document.getElementById("txtTelefone").value.trim();
+      const email = document.getElementById("txtEmail").value.trim();
+      const alergias = document.getElementById("txtAlergias").value.trim();
+      const medicamentos = document.getElementById("txtMedicamentos").value.trim();
+      const condicoesSaude = document.getElementById("txtCondicoesSaude").value.trim();
+
       // Cria um objeto com os dados
       const admin = {
         id: new Date().getTime(),
-        nome: nomeAdmin,
+        usuario: usuario,
+        senha: senha,
+        nome: nome,
+        nascimento: nascimento,
+        sexo: sexo,
+        nacionalidade: nacionalidade,
+        naturalidade: naturalidade,
+        rg: rg,
+        cpf: cpf,
+        endereço: endereço,
+        telefone: telefone,
+        email: email,
+        saude: {
+          alergias: alergias,
+          medicamentos: medicamentos,
+          condicoesEspeciais: condicoesSaude
+        }
       };
   
       // Recupera alunos existentes do Local Storage (se houver)

@@ -186,29 +186,26 @@
             <h4 class="text-primary">Informações Acadêmicas</h4>
             <div class="row">
               <div class="col-md-4 mb-3">                
+                <select id="slctAnoLetivo" class="custom-select" onchange="carregarSeries(this, slctSerie)" required>
+                  
+                </select>
+                <label for="slctAnoLetivo" class="form-label">Ano Letivo *  </label>
+              </div>
+              <div class="col-md-4 mb-3">                
                 <select id="slctSerie" class="custom-select" onchange="carregarTurmas(this, slctTurma)" required>
-                  <option value="" selected disabled>Selecione a Série</option>
-                  <option value="1º Ano">1º Ano</option>
-                  <option value="2º Ano">2º Ano</option>
-                  <option value="3º Ano">3º Ano</option>
-                  <option value="4º Ano">4º Ano</option>
-                  <option value="5º Ano">5º Ano</option>
+                  <option value="" selected disabled>Selecione um ano</option>
                 </select>
                 <label for="slctSerie" class="form-label">Série *  </label>
               </div>
               <div class="col-md-4 mb-3">                
-                <select id="slctTurma" class="form-control" required>
+                <select id="slctTurma" class="form-control" onchange="carregarTurno(slctAnoLetivo, slctSerie, this, txtTurno)" required>
                   <option value="" selected disabled>Selecione a Série</option>
                   <!-- Turmas serão carregadas automaticamente -->
                 </select>
                 <label for="slctTurma" class="form-label">Turma *</label>
               </div>
               <div class="col-md-4 mb-3">
-                <select id="slctTurno" class="custom-select" required>
-                  <option value="" selected disabled>Selecione</option>
-                  <option value="matutino">Matutino</option>
-                  <option value="vespertino">Vespertino</option>
-                </select>
+                <input type="text" class="form-control" id="txtTurno" placeholder="Selecione a Turma" disabled>
                 <label for="slctTurno" class="form-label">Turno *  </label>
               </div>
             </div>
@@ -268,15 +265,49 @@
   <!-- Template Javascript -->
   <script src="./../../../../js/validacao.js"></script>
   <script>
-    function carregarTurmas(slct, input) {
-      const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
-      const turma_slct = document.querySelector("#slctTurma");
-      let html = `<option value="" selected disabled>Selecione a Turma</option>`;
+    const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+
+    function carregarAnoLetivo() {
+      let slct_ano_letivo = document.querySelector("#slctAnoLetivo");
+      let html = `<option value="" selected disabled>Selecione o Ano Letivo</option>`;
       turmas.forEach(e => {
-        if(slct.value == e.serie) html += `<option value="${e.id}">${e.nome}</option>`;
+        if (!html.includes(`value="${e.ano}"`)) { 
+          html += `<option value="${e.ano}">${e.ano}</option>`;
+        }
       });
       if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;
-      turma_slct.innerHTML = html;
+      slct_ano_letivo.innerHTML = html;
+    }
+
+    function carregarSeries(slct_ano, slct_series) {
+      let html = `<option value="" selected disabled>Selecione a Série</option>`;
+      turmas.forEach(e => {
+        if(slct_ano.value == e.ano) {
+          html += `<option value="${e.serie}">${e.serie}</option>`;
+        }
+      });
+      if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;
+      slct_series.innerHTML = html;
+    }
+    
+    function carregarTurmas(slct_series, slct_turma) {
+      let html = `<option value="" selected disabled>Selecione a Turma</option>`;
+      turmas.forEach(e => {
+        if(slct_series.value == e.serie) {
+          html += `<option value="${e.nome}">${e.nome}</option>`;
+        }
+      });
+      if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;
+      slct_turma.innerHTML = html;
+    }
+    
+    function carregarTurno(slct_ano, slct_series, slct_turma, input) {  
+      turmas.forEach(e => {
+          if(slct_ano.value == e.ano &&
+             slct_series.value == e.serie &&
+             slct_turma.value == e.nome 
+          ) input.value = e.turno;
+      });
     }
     // Função para salvar os dados do formulário no Local Storage
     function salvarAluno(event) {
@@ -295,18 +326,62 @@
       }
 
       // Captura os valores dos campos
-      const nomeAluno = document.getElementById("txtNomeAluno").value.trim();
-      const turma = document.getElementById("slctTurma").value;
       const usuario = document.getElementById("txtUsername").value.trim();
       const senha = document.getElementById("txtPassword").value.trim();
-      
+      const nome = document.getElementById("txtNomeAluno").value.trim();
+      const nascimento = document.getElementById("dtNascimento").value.trim();
+      const sexo = document.getElementById("slctSexo").value.trim();
+      const nacionalidade = document.getElementById("txtNacionalidade").value.trim();
+      const naturalidade = document.getElementById("txtNaturalidade").value.trim();
+      const rg = document.getElementById("txtRG").value.trim();
+      const cpf = document.getElementById("txtCPF").value.trim();
+      const endereco = document.getElementById("txtEndereco").value.trim();
+      const celular = document.getElementById("txtCelular").value.trim();
+      const email = document.getElementById("txtEmail").value.trim();
+      const nomeResponsavel = document.getElementById("txtNomeResponsavel").value.trim();
+      const parentesco = document.getElementById("txtParentesco").value.trim();
+      const celularResponsavel = document.getElementById("txtCelularResponsavel").value.trim();
+      const rgResponsavel = document.getElementById("txtRGResponsavel").value.trim();
+      const cpfResponsavel = document.getElementById("txtCPFResponsavel").value.trim();
+      const ano = document.getElementById("slctAnoLetivo").value.trim();
+      const serie = document.getElementById("slctSerie").value.trim();
+      const turma = document.getElementById("slctTurma").value; // Já é obrigatório, sem .trim()
+      const turno = document.getElementById("txtTurno").value.trim();
+      const alergias = document.getElementById("txtAlergias").value.trim();
+      const medicamentos = document.getElementById("txtMedicamentos").value.trim();
+      const condicoesSaude = document.getElementById("txtCondicoesSaude").value.trim();
+
       // Cria um objeto com os dados
       const aluno = {
         id: new Date().getTime(),
-        nome: nomeAluno,
-        turma: turma,
         usuario: usuario,
-        senha: senha
+        senha: senha,
+        nome: nome,
+        nascimento: nascimento,
+        sexo: sexo,
+        nacionalidade: nacionalidade,
+        naturalidade: naturalidade,
+        rg: rg,
+        cpf: cpf,
+        endereco: endereco,
+        celular: celular,
+        email: email,
+        responsavel: {
+          nome: nomeResponsavel,
+          parentesco: parentesco,
+          celular: celularResponsavel,
+          rg: rgResponsavel,
+          cpf: cpfResponsavel
+        },
+        ano: ano,
+        serie: serie,
+        turma: turma,
+        turno: turno,
+        saude: {
+          alergias: alergias,
+          medicamentos: medicamentos,
+          condicoesEspeciais: condicoesSaude
+        }
       };
   
       // Recupera alunos existentes do Local Storage (se houver)
@@ -322,6 +397,9 @@
       document.location.href = "./aluno_index.html";      
     }
     
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarAnoLetivo();
+    });
   </script>
 </body>
 

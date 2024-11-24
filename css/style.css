@@ -43,6 +43,7 @@
 }
 
 html {
+  height: 100%;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -54,6 +55,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 body {
+  height: 100%;
+  position: relative;
   margin: 0;
   font-family: "Nunito", sans-serif;
   font-size: 1rem;
@@ -62,6 +65,11 @@ body {
   color: #666666;
   text-align: left;
   background-color: #fff;
+}
+
+.body-grid{
+  display: grid; 
+  grid-template-rows: auto 1fr auto;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {

@@ -50,6 +50,15 @@
   <!-- Navbar End -->
 
   <div class="container">
+    <div class="row mt-2">
+      <h3>Caso seja a primeira vez abrindo esse site clique no botão abaixo para inicializar um usuario para o aluno, professor e admin,</h3>
+      <p>
+        Aluno -> Usuario: aluno, Senha: Aluno123$ <br>
+        Professor -> Usuario: professor, Senha: Professor123$ <br>
+        Admin -> Usuario: admin, Senha: Admin123$
+      </p>
+      <button type="submit" onclick="inicializarUsuarios()" class="btn btn-block btn-primary">Inicializar usuarios</button>
+    </div>
     <div class="row">
       <div class="col-md-6 login-container">
         <h3 class="text-center text-dark">Login - Aluno</h3>
@@ -71,18 +80,17 @@
 
       <div class="col-md-6 bg-custom-1 login-container">
         <h3 class="text-center text-white">Login - Funcionarios</h3>
-        <form>
+        <form onsubmit="logarFuncionario(event)">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Usuario: " value="" />
+            <input type="text" class="form-control" name="usuario" placeholder="Usuario: " value="" />
           </div>
           <br>
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Senha: " value="" />
+            <input type="password" class="form-control" name="senha" placeholder="Senha: " value="" />
           </div>
           <br>
           <div class="form-group d-flex flex-column align-items-center">            
-            <button class="btn btn-block btn-light" type="button" onclick="location.href='../dashboard/admin/area_Admin.html'">Login - admin</button>
-            <button class="btn btn-block btn-light" type="button" onclick="location.href='../dashboard/professor/area_Professor.html'">Login - professor</button>
+            <button type="submit" class="btn btn-block btn-light">Login</button>
             <a href="#" class="text-dark mt-2" value="Login">Esqueceu sua senha?</a>
           </div>
         </form>
@@ -171,12 +179,116 @@
   </div>
   <!-- Footer End -->
    <script>
+    function inicializarUsuarios() {
+      const admins = JSON.parse(localStorage.getItem("admins")) || [];
+      const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+      const professores = JSON.parse(localStorage.getItem("professores")) || [];
+      const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+
+      const admin = {
+        id: new Date().getTime(),
+        usuario: "admin",
+        senha: "Admin123$",
+        nome: "João da Silva",
+        nascimento: "1980-05-15",
+        sexo: "masculino",
+        nacionalidade: "Brasileiro",
+        naturalidade: "São Paulo, SP",
+        rg: "12.345.678-9",
+        cpf: "123.456.789-09", // CPF válido
+        endereço: "Rua das Flores, 123, Bairro Centro, São Paulo, SP",
+        telefone: "(11) 98765-4321",
+        email: "joao.silva@email.com",
+        saude: {
+          alergias: "Nenhuma", // Alergias do admin
+          medicamentos: "Nenhum medicamento em uso", // Medicamentos que o admin usa (caso tenha)
+          condicoesEspeciais: "Nenhuma condição especial de saúde" // Condições especiais de saúde
+        }
+      };
+
+      const turma = {
+        id: new Date().getTime(), // Exemplo: 1698388595731 (gerado automaticamente)
+        nome: "Turma A", // Nome da turma (exemplo: "Turma A")
+        ano: "2024", // Ano letivo da turma (exemplo: 2024)
+        serie: "2º Ano", // Série que a turma está cursando (exemplo: "1º Ano")
+        professor: "Mariana Silva", // Nome do professor responsável pela turma (exemplo: "Mariana Silva")
+        dataInicio: "2024-02-01", // Data de início das aulas no formato 'YYYY-MM-DD'
+        turno: "Matutino", // Turno escolar (exemplo: "Matutino", "Vespertino")
+        dataFim: "2024-12-15", // Data de término das aulas no formato 'YYYY-MM-DD'
+      };
+      
+      const aluno = {
+        id: new Date().getTime(), // Exemplo: 1698388595731
+        usuario: "aluno", // Nome de usuário do aluno
+        senha: "Aluno123$", // Senha (em um caso real, sempre deve ser criptografada)
+        nome: "Lucas Oliveira", // Nome completo do aluno
+        nascimento: "2004-12-05", // Data de nascimento no formato 'YYYY-MM-DD'
+        nacionalidade: "Brasileiro", // Nacionalidade
+        naturalidade: "Rio de Janeiro", // Naturalidade (cidade de nascimento)
+        rg: "34.567.890-1", // RG do aluno (documento de identidade)
+        cpf: "111.222.333-44", // CPF do aluno
+        endereco: "Avenida Atlântica, 455, Copacabana", // Endereço completo
+        celular: "(21) 99876-5432", // Celular do aluno
+        email: "lucas.oliveira@email.com", // E-mail do aluno
+        responsavel: {
+          nome: "Ana Oliveira", // Nome do responsável
+          parentesco: "Mãe", // Grau de parentesco
+          celular: "(21) 91234-5678", // Celular do responsável
+          rg: "45.678.901-2", // RG do responsável
+          cpf: "222.333.444-55" // CPF do responsável
+        },
+        ano: "2024",
+        serie: "2º Ano", // Série escolar do aluno
+        turma: "Turma A", // Identificação da turma (exemplo: "A", "B", etc.)
+        turno: "Matutino", // Turno escolar (exemplo: "Matutino", "Vespertino")
+        saude: {
+          alergias: "Pólen", // Alergias conhecidas
+          medicamentos: "Antialérgico", // Medicamentos em uso
+          condicoesEspeciais: "Asma leve", // Condições especiais de saúde
+        }
+      };
+
+      const professor = {
+        id: new Date().getTime(), // Exemplo: 1698388595731 (gerado automaticamente)
+        usuario: "professor", // Nome de usuário para o professor
+        senha: "Professor123$", // Senha do professor (lembre-se de criptografar em um sistema real)
+        nome: "Mariana Silva", // Nome completo do professor
+        nascimento: "1985-03-22", // Data de nascimento no formato 'YYYY-MM-DD'
+        sexo: "Feminino", // Sexo do professor
+        nacionalidade: "Brasileira", // Nacionalidade do professor
+        naturalidade: "São Paulo", // Naturalidade (cidade onde nasceu)
+        rg: "12.345.678-9", // Número do RG (documento de identidade)
+        cpf: "123.456.789-00", // Número do CPF (documento fiscal)
+        endereco: "Rua da Consolação, 1234, São Paulo", // Endereço completo
+        celular: "(11) 98765-4321", // Número de celular do professor
+        email: "mariana.silva@escola.com", // E-mail de contato do professor
+        saude: {
+          alergias: "Nenhuma", // Alergias do professor
+          medicamentos: "Nenhum medicamento em uso", // Medicamentos que o professor usa (caso tenha)
+          condicoesEspeciais: "Nenhuma condição especial de saúde" // Condições especiais de saúde
+        }
+      };
+
+      admins.push(admin);
+      localStorage.setItem("admins", JSON.stringify(admins));
+
+      turmas.push(turma);
+      localStorage.setItem("turmas", JSON.stringify(turmas));
+
+      alunos.push(aluno);
+      localStorage.setItem("alunos", JSON.stringify(alunos));
+
+      professores.push(professor);
+      localStorage.setItem("professores", JSON.stringify(professores));
+
+      alert("usuarios inicializados");
+    }
     function logarAluno(e) {
-      event.preventDefault(); 
+      e.preventDefault(); 
       const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
       
-      const usuario = event.target.usuario.value;
-      const password = event.target.senha.value;
+      const usuario = e.target.usuario.value;
+      const password = e.target.senha.value;
       
       alunos.forEach(e => {
         if (usuario === e.usuario && password === e.senha) {
@@ -189,6 +301,37 @@
         }  
       });
 
+    }
+
+    function logarFuncionario(e) {
+      e.preventDefault(); 
+      const professores = JSON.parse(localStorage.getItem("professores")) || [];
+      const admins = JSON.parse(localStorage.getItem("admins")) || [];
+      
+      const usuario = e.target.usuario.value;
+      const password = e.target.senha.value;
+      
+      professores.forEach(e => {
+        if (usuario === e.usuario && password === e.senha) {
+          let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
+  
+          usuarioAtual = e.id;
+          
+          localStorage.setItem("usuarioAtual", JSON.stringify(usuarioAtual));
+          location.href="../dashboard/professor/area_Professor.html"
+        }  
+      });
+
+      admins.forEach(e => {
+        if (usuario === e.usuario && password === e.senha) {
+          let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
+  
+          usuarioAtual = e.id;
+          
+          localStorage.setItem("usuarioAtual", JSON.stringify(usuarioAtual));
+          location.href="../dashboard/admin/area_Admin.html"
+        }  
+      });
     }
    </script>
 </body>
