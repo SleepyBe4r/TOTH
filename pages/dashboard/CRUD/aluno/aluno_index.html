@@ -112,26 +112,7 @@
   <!-- JavaScript Libraries -->
   <script>
     // Exemplo de dados simulados
-    let alunos = [
-      {
-        id: 1,
-        nome: "Turma A",
-        ano: 2024,
-        serie: "1º Ano",
-        professor: "João Silva",
-        dataInicio: "2024-02-01",
-        dataFim: "2024-12-15"
-      },
-      {
-        id: 2,
-        nome: "Turma B",
-        ano: 2024,
-        serie: "2º Ano",
-        professor: "Maria Santos",
-        dataInicio: "2024-02-01",
-        dataFim: "2024-12-15"
-      }
-    ];
+    let alunos = [];
 
     function carregarAlunos() {
         const alunos = JSON.parse(localStorage.getItem("alunos")) || [];

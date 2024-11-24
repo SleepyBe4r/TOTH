@@ -74,13 +74,13 @@
                 <input type="password" class="form-control" id="txtPassword" 
                     onblur="validarSenha(this,erro_txtPassword)" required>
                 <label for="txtPassword" class="form-label">Senha *  </label>
-                <label id="erro_txtPassword" class="form-label text-danger"></label>
+                <label id="erro_txtPassword" for="txtPassword" class="form-label text-danger erro"></label>
               </div>
               <div class="col-md-6 mb-3">
                 <input type="password" class="form-control" id="txtConfirmPassword" 
                     onblur="validarComfirmarSenha(txtPassword,this,erro_txtConfirmPassword)" required>
                 <label for="txtConfirmPassword" class="form-label">Confirmar Senha *  </label>
-                <label id="erro_txtConfirmPassword" class="form-label text-danger"></label>
+                <label id="erro_txtConfirmPassword" for="txtConfirmPassword" class="form-label text-danger erro"></label>
               </div>
             </div>
             <!-- Dados Pessoais do Aluno -->
@@ -94,7 +94,7 @@
                 <input type="date" class="form-control" id="dtNascimento" 
                     onblur="validarDataNascimentoAluno(this,erro_dtNascimento)" required>
                 <label for="dtNascimento" class="form-label">Data de Nascimento *  </label>
-                <label id="erro_dtNascimento" class="form-label text-danger"></label>
+                <label id="erro_dtNascimento" for="dtNascimento" class="form-label text-danger erro"></label>
               </div>
               <div class="col-md-6 mb-3">
                 <select id="slctSexo" class="custom-select" required>
@@ -127,7 +127,7 @@
                     placeholder="###.###.###-##" onkeypress="mascara('###.###.###-##',this,event,true)" 
                     onblur="validarCPF(erro_txtCPF)" maxlength="14" required>
                     <label for="txtCPF" class="form-label">CPF *  </label>
-                    <label id="erro_txtCPF" class="form-label text-danger"></label>
+                    <label id="erro_txtCPF" for="txtCPF" class="form-label text-danger erro"></label>
               </div>
             </div>
       
@@ -146,7 +146,7 @@
               <div class="col-md-6 mb-3">
                 <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" required>
                 <label for="txtEmail" class="form-label">E-mail *  </label>
-                <label id="error_txtEmail" class="form-label text-danger"></label>
+                <label id="error_txtEmail" for="txtEmail" class="form-label text-danger erro"></label>
               </div>
             </div>
       
@@ -178,7 +178,7 @@
                     placeholder="###.###.###-##" onkeypress="mascara('###.###.###-##',this,event,true)" 
                     onblur="validarCPF(erro_txtCPFResponsavel)" maxlength="14" required>
                     <label for="txtCPFResponsavel" class="form-label">CPF do Responsável *  </label>
-                    <label id="erro_txtCPFResponsavel" class="form-label text-danger"></label>
+                    <label id="erro_txtCPFResponsavel" for="txtCPFResponsavel" class="form-label text-danger erro"></label>
               </div>
             </div>
 
@@ -367,15 +367,31 @@
     function salvarAluno(event) {
       event.preventDefault(); // Previne o envio padrão do formulário
   
+      const erroLabels = document.querySelectorAll('label.erro');
+      for (const e of erroLabels) {
+        if (e.innerHTML.trim() !== "") {
+          const inputId = e.htmlFor; // Obtém o id do input associado ao label
+          const input = document.getElementById(inputId);
+          if (input) {
+            input.focus(); // Foca no campo com erro
+            return; // Interrompe a execução para corrigir o erro
+          }
+        }
+      }
+
       // Captura os valores dos campos
       const nomeAluno = document.getElementById("txtNomeAluno").value.trim();
-      const serie = document.getElementById("slctSerie").value;
-  
+      const turma = document.getElementById("slctTurma").value;
+      const usuario = document.getElementById("txtUsername").value.trim();
+      const senha = document.getElementById("txtPassword").value.trim();
+      
       // Cria um objeto com os dados
       const aluno = {
         id: new Date().getTime(),
         nome: nomeAluno,
-        serie: serie,
+        turma: turma,
+        usuario: usuario,
+        senha: senha
       };
   
       // Recupera alunos existentes do Local Storage (se houver)

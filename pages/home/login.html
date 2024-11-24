@@ -43,7 +43,7 @@
           <a href="./eventos.html" class="nav-item nav-link">Eventos</a>
           <a href="./contate_me.html" class="nav-item nav-link">Contato</a>
         </div>
-        <a href="./login.html" class="btn btn-primary px-4">Login</a>
+        <button type="submit" class="btn btn-primary">Login</button>
       </div>
     </nav>
   </div>
@@ -53,17 +53,17 @@
     <div class="row">
       <div class="col-md-6 login-container">
         <h3 class="text-center text-dark">Login - Aluno</h3>
-        <form>
+        <form onsubmit="logarAluno(event)">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="E-mail: " value="" />
+            <input type="text" class="form-control" name="usuario" placeholder="Usuario: " value="" />
           </div>
           <br>
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Senha: " value="" />
+            <input type="password" class="form-control" name="senha" placeholder="Senha: " value="" />
           </div>
           <br>
           <div class="form-group d-flex flex-column align-items-center">
-            <button class="btn btn-block btn-primary" type="button" onclick="location.href='../dashboard/aluno/area_Aluno.html'">Login</button>
+            <button type="submit" class="btn btn-block btn-primary">Login</button>
             <a href="#" class="text-dark mt-2">Esqueceu sua senha?</a>
           </div><br>
         </form>
@@ -73,7 +73,7 @@
         <h3 class="text-center text-white">Login - Funcionarios</h3>
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="E-mail: " value="" />
+            <input type="text" class="form-control" placeholder="Usuario: " value="" />
           </div>
           <br>
           <div class="form-group">
@@ -170,6 +170,27 @@
     </div>    
   </div>
   <!-- Footer End -->
+   <script>
+    function logarAluno(e) {
+      event.preventDefault(); 
+      const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+      
+      const usuario = event.target.usuario.value;
+      const password = event.target.senha.value;
+      
+      alunos.forEach(e => {
+        if (usuario === e.usuario && password === e.senha) {
+          let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
+  
+          usuarioAtual = e.id;
+          
+          localStorage.setItem("usuarioAtual", JSON.stringify(usuarioAtual));
+          location.href = "../dashboard/aluno/area_Aluno.html";
+        }  
+      });
+
+    }
+   </script>
 </body>
 
 </html>
