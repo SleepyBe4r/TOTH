@@ -79,12 +79,15 @@
             <h4 class="text-primary">Professor Responsável</h4>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="text" class="form-control" id="txtProfessorNome" placeholder="Nome do Professor" required>
-                <label for="txtProfessorNome" class="form-label">Nome do Professor *</label>
+                <select id="slctProfessor" class="form-control" onchange="carregarEmail(this, txtProfessorEmail)" required>
+                  
+                  <!-- Professores serão carregadas automaticamente -->
+                </select>
+                <label for="slctProfessor" class="form-label">Nome do Professor *</label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="email" class="form-control" id="txtProfessorEmail" onblur="validarEmail(this,error_txtProfessorEmail)" placeholder="email@exemplo.com" required>
-                <label for="txtProfessorEmail" class="form-label">E-mail do Professor *</label>
+                <input type="email" class="form-control" id="txtProfessorEmail" placeholder="Selecione o Professor" disabled>
+                <label for="txtProfessorEmail" class="form-label">E-mail do Professor</label>
                 <label id="error_txtProfessorEmail" class="form-label text-danger"></label>
               </div>
             </div>
@@ -126,15 +129,41 @@
   <script src="./../../../../js/validacao.js"></script>
   <!-- Scripts -->
   <script>
+    let professor_list = [];
+
     function carregarTurmas() {
-        const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
-        const turma_slct = document.querySelector("#slctTurma");
-        let html = `<option value="" selected disabled>Selecione a Turma</option>`;
-        turmas.forEach(e => {
-            html += `<option value="${e.id}">${e.nome}</option>`;
-        });
-        turma_slct.innerHTML = html;
+      const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+      const turma_slct = document.querySelector("#slctTurma");
+      let html = `<option value="" selected disabled>Selecione a Turma</option>`;
+      turmas.forEach(e => {
+          html += `<option value="${e.id}">${e.nome}</option>`;
+      });
+      turma_slct.innerHTML = html;
     }
+    
+    function carregarprofessores() {
+      const professores = JSON.parse(localStorage.getItem('professores')) || [];
+      const professor_slct = document.querySelector("#slctProfessor");
+      let html = `<option value="" selected disabled>Selecione o Professor</option>`;
+      professores.forEach(e => {
+          html += `<option value="${e.id}">${e.nome}</option>`;
+          professor_list.push( {
+            id: e.id,
+            nome: e.nome,
+            cpf: e.cpf,
+            celular: e.celular,
+            email: e.email,
+          });
+      });
+      professor_slct.innerHTML = html;
+    }
+
+    function carregarEmail(slct, input) {  
+      professor_list.forEach(e => {
+          if(e.id == slct.value) input.value = e.email;
+      });
+    }
+
     // Função para salvar a disciplina no Local Storage
     function salvarDisciplina(event) {        
       event.preventDefault();
@@ -169,7 +198,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         carregarTurmas();
-      
+        carregarprofessores();
     });
 
   </script>
