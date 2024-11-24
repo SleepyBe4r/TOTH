@@ -139,9 +139,9 @@
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="tel" class="form-control" id="txtCelular" 
+                <input type="tel" class="form-control" id="txtTelefone" 
                     placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
-                <label for="txtCelular" class="form-label">Celular *  </label>
+                <label for="txtTelefone" class="form-label">Telefone *  </label>
               </div>
               <div class="col-md-6 mb-3">
                 <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" required>
@@ -230,7 +230,7 @@
         const rg = document.getElementById("txtRG").value.trim();
         const cpf = document.getElementById("txtCPF").value.trim();
         const endereco = document.getElementById("txtEndereco").value.trim();
-        const celular = document.getElementById("txtCelular").value.trim();
+        const telefone = document.getElementById("txtTelefone").value.trim();
         const email = document.getElementById("txtEmail").value.trim();
         const alergias = document.getElementById("txtAlergias").value.trim();
         const medicamentos = document.getElementById("txtMedicamentos").value.trim();
@@ -248,7 +248,7 @@
           rg: rg,
           cpf: cpf,
           endereco: endereco,
-          celular: celular,
+          telefone: telefone,
           email: email,
           saude: {
             alergias: alergias,

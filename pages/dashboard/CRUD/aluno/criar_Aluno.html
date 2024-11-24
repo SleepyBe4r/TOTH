@@ -139,9 +139,9 @@
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="tel" class="form-control" id="txtCelular" 
+                <input type="tel" class="form-control" id="txtTelefone" 
                     placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
-                <label for="txtCelular" class="form-label">Celular *  </label>
+                <label for="txtTelefone" class="form-label">Telefone *  </label>
               </div>
               <div class="col-md-6 mb-3">
                 <input type="email" class="form-control" id="txtEmail" onblur="validarEmail(this,error_txtEmail)" required>
@@ -162,9 +162,9 @@
                 <label for="txtParentesco" class="form-label">Grau de Parentesco *  </label>
               </div>
               <div class="col-md-6 mb-3">
-                <input type="tel" class="form-control" id="txtCelularResponsavel" 
+                <input type="tel" class="form-control" id="txttelefoneResponsavel" 
                     placeholder="(##)#####.####" onkeyup="mascara('(##)#####.####',this,event,true)" maxlength="14" required>
-                <label for="txtCelularResponsavel" class="form-label">Celular do Responsável *  </label>
+                <label for="txttelefoneResponsavel" class="form-label">Telefone do Responsável *  </label>
               </div>              
             </div>
             <div class="row">
@@ -336,11 +336,11 @@
       const rg = document.getElementById("txtRG").value.trim();
       const cpf = document.getElementById("txtCPF").value.trim();
       const endereco = document.getElementById("txtEndereco").value.trim();
-      const celular = document.getElementById("txtCelular").value.trim();
+      const telefone = document.getElementById("txttelefone").value.trim();
       const email = document.getElementById("txtEmail").value.trim();
       const nomeResponsavel = document.getElementById("txtNomeResponsavel").value.trim();
       const parentesco = document.getElementById("txtParentesco").value.trim();
-      const celularResponsavel = document.getElementById("txtCelularResponsavel").value.trim();
+      const telefoneResponsavel = document.getElementById("txttelefoneResponsavel").value.trim();
       const rgResponsavel = document.getElementById("txtRGResponsavel").value.trim();
       const cpfResponsavel = document.getElementById("txtCPFResponsavel").value.trim();
       const ano = document.getElementById("slctAnoLetivo").value.trim();
@@ -364,12 +364,12 @@
         rg: rg,
         cpf: cpf,
         endereco: endereco,
-        celular: celular,
+        telefone: telefone,
         email: email,
         responsavel: {
           nome: nomeResponsavel,
           parentesco: parentesco,
-          celular: celularResponsavel,
+          telefone: telefoneResponsavel,
           rg: rgResponsavel,
           cpf: cpfResponsavel
         },

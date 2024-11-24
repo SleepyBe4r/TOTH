@@ -69,9 +69,9 @@
           <!-- Perfil Section -->
           <section id="perfil" class="mb-5">
             <h4 class="text-primary">Perfil</h4>
-            <p><strong>Nome:</strong> [Nome do Administrador]</p>
-            <p><strong>E-mail:</strong> admin@email.com</p>
-            <p><strong>Telefone:</strong> +55 12 34567-8901</p>
+            <p id="txtNome"></p>
+            <p id="txtEmail"></p>
+            <p id="txtTelefone"></p>
           </section>
   
           <!-- Usuários Section -->
@@ -139,5 +139,22 @@
 
     <!-- Template Javascript -->
     <script src="./../../../js/main.js"></script>
+
+    <script>
+      function carregarPerfil() {
+        let admins = JSON.parse(localStorage.getItem("admins")) || [];
+        let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
+        admins.forEach(e => {
+          if(e.id == usuarioAtual){
+            document.querySelector("#txtNome").innerHTML = `<strong>Nome: ${e.nome}</strong>`;
+            document.querySelector("#txtEmail").innerHTML = `<strong>E-mail: ${e.email}</strong>`;
+            document.querySelector("#txtTelefone").innerHTML = `<strong>Telefone: ${e.telefone}</strong>`;
+          }
+        });
+      }
+      document.addEventListener("DOMContentLoaded", ()=>{
+        carregarPerfil();
+      });
+    </script>
   </body>
 </html>
