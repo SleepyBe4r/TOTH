@@ -38,7 +38,7 @@
         <div class="navbar-nav font-weight-bold mx-auto">
           <a href="./../../admin/area_Admin.html" class="nav-item nav-link">Área do Admin</a>
         </div>
-        <a href="./../../../../index.html" class="btn btn-danger px-4">Sair</a>
+        <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
       </div>
     </nav>
   </div>
@@ -163,7 +163,10 @@
         let check_box_all = document.querySelector("#ckTodos");
         check_box_all.checked = false;
     }
-
+    function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
     // Carregar turmas ao carregar a página
     document.addEventListener("DOMContentLoaded", ()=>{
         carregarAlunos();

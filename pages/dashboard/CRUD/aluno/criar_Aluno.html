@@ -38,7 +38,7 @@
         <div class="navbar-nav font-weight-bold mx-auto">
           <a href="./../../admin/area_Admin.html" class="nav-item nav-link">Área do Admin</a>
         </div>
-        <a href="./../../../../index.html" class="btn btn-danger px-4">Sair</a>
+        <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
       </div>
     </nav>
   </div>
@@ -54,6 +54,9 @@
           <ul class="list-unstyled">
             <li>
               <a href="./../../admin/area_Admin.html" class="text-dark"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</a>
+            </li>
+            <li>
+              <a href="./aluno_index.html" class="text-dark"><i class="fas fa-list"></i> Listar alunos</a>
             </li>
           </ul>
         </div>
@@ -400,6 +403,10 @@
     document.addEventListener("DOMContentLoaded", () => {
       carregarAnoLetivo();
     });
+    function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
   </script>
 </body>
 

@@ -37,7 +37,7 @@
           <div class="navbar-nav font-weight-bold mx-auto">
             <a href="./../../aluno/area_Aluno.html" class="nav-item nav-link">Área do Aluno</a>
           </div>
-          <a href="logout.html" class="btn btn-danger px-4">Sair</a>
+          <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
         </div>
       </nav>
     </div>
@@ -53,6 +53,9 @@
             <ul class="list-unstyled">
               <li><a href="./../../aluno/area_Aluno.html" class="text-dark"><i class="fas fa-user-circle"></i> Voltar ao Dashboard</a></li>
             </ul>
+            <li>
+              <a href="./notas_Faltas_Create.html" class="text-dark"><i class="fas fa-plus"></i> Cadastrar Notas e Faltas</a>
+            </li>
           </div>
         </div>
         <!-- Main Section -->
@@ -68,7 +71,7 @@
                 <label for="turma">Turma</label>
               </div>
               <div class="col-md-4 mb-3">
-                <select id="slctdisciplina" class="form-control" onchange="carregarBimestre(this, slctbimestre)" required>
+                <select id="slctdisciplina" class="form-control" onchange="carregarBimestre(this, slctbimestre, slctTurma)" required>
                   <option value="" selected disabled>Selecione a Turma</option>
                 </select>
                 <label for="slctdisciplina">Disciplina</label>
@@ -83,6 +86,9 @@
             <table id="lista_notas" class="table table-striped">
               
             </table>
+            <div>		
+              <input style="display: none;" type="button" class="btn btn-danger" value="excluir selecionados" id="btnExcluirSelecionados">
+            </div>
           </section>
         </div>
       </div>
@@ -123,8 +129,8 @@
 
       function carregarTurmas() {
         let slctTurma = document.querySelector("#slctTurma");
+        let html = `<option value="" selected disabled>Selecione a Turma</option>`;
         if (usuario == "A") {
-          let html = `<option value="" selected disabled>Selecione a Turma</option>`;
           alunos.forEach(e => {
             if(usuarioAtual == e.id){
               let turma = turmas.filter(a => a.id == e.turma);
@@ -155,11 +161,16 @@
         slct_Disc.innerHTML = html;
       }
 
-      function carregarBimestre(slct_Disc, slct_Bime) {
-        let nota = notas.filter(a => a.aluno == usuarioAtual && a.disciplina == parseInt(slct_Disc.value));
+      function carregarBimestre(slct_Disc, slct_Bime, slct_Turma) {
+        let nota;
+        if (usuario == "A") {
+          nota = notas.filter(a => a.aluno == usuarioAtual && a.disciplina == parseInt(slct_Disc.value));  
+        } else{
+          nota = notas.filter(a => a.turma == parseInt(slct_Turma.value) && a.disciplina == parseInt(slct_Disc.value));
+        }
         let html = `<option value="" selected disabled>Selecione o Bimestre</option>`;
         nota.forEach(e => {
-          html += `<option value="${e.bimeste}">${e.bimestre}° Bimestre</option>`;
+          html += `<option value="${e.bimestre}">${e.bimestre}° Bimestre</option>`;
         });
         if(html == `<option value="" selected disabled>Selecione o Bimestre</option>`) html += `<option value="">Nenhum Bimestre cadastrado</option>`;
         slct_Bime.innerHTML = html;
@@ -223,8 +234,12 @@
               </thead>
               <tbody>`;
 
+                let disciplina = document.getElementById("slctdisciplina").value;
+                let turma = document.getElementById("slctTurma").value;
+                let bimestre = document.getElementById("slctbimestre").value;
+
               notas.forEach(e => {
-                if(usuarioAtual == e.aluno){
+                if (e.turma == parseInt(turma) && e.disciplina == parseInt(disciplina) && e.bimestre == parseInt(bimestre)) {
                   let disciplina = disciplinas.find(a => a.id === e.disciplina);
                   let situacao;
 
@@ -238,6 +253,7 @@
                   
                   html += `
                   <tr>
+                    <td class='coluna'><input type='checkbox' name='check_del' data-id='${e.aluno}'></td>
                     <td>${disciplina.nome}</td>
                     <td>${e.bimestre}</td>
                     <td>${e.nota}</td>
@@ -247,6 +263,7 @@
                   `;    
                 }
               });
+              document.querySelector("#btnExcluirSelecionados").style.display = "block";
               html += `</tbody>`;
               tabela.innerHTML = html;
               break;
@@ -304,6 +321,10 @@
           check_box_all.checked = false;
       }
   
+      function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
       // Carregar notas ao carregar a página
       document.addEventListener("DOMContentLoaded", ()=>{
           alunos.forEach(e => {

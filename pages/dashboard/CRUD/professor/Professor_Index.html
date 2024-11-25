@@ -38,7 +38,7 @@
         <div class="navbar-nav font-weight-bold mx-auto">
           <a href="./../../admin/area_Admin.html" class="nav-item nav-link">Área do Admin</a>
         </div>
-        <a href="./../../../../index.html" class="btn btn-danger px-4">Sair</a>
+        <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
       </div>
     </nav>
   </div>
@@ -153,7 +153,10 @@
         const selecionarTodos = document.getElementById("ckTodos").checked;
         checkboxes.forEach(checkbox => (checkbox.checked = selecionarTodos));
     }
-
+    function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
     document.addEventListener("DOMContentLoaded", () => {
         carregarProfessores();
         document.getElementById("ckTodos").addEventListener("change", selecionarTodos);

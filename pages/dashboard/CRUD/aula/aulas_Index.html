@@ -37,7 +37,7 @@
             <div class="navbar-nav font-weight-bold mx-auto">
                 <a href="./../../aluno/area_Aluno.html" class="nav-item nav-link">Área do Aluno</a>
             </div>
-          <a href="logout.html" class="btn btn-danger px-4">Sair</a>
+            <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
         </div>
       </nav>
     </div>
@@ -137,5 +137,11 @@
 
     <!-- Template Javascript -->
     <script src="./../../../../js/main.js"></script>
+    <script>
+      function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
+    </script>
   </body>
 </html>

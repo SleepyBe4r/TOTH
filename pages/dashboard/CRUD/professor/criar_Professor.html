@@ -38,7 +38,7 @@
         <div class="navbar-nav font-weight-bold mx-auto">
           <a href="./../../admin/area_Admin.html" class="nav-item nav-link">Área do Admin</a>
         </div>
-        <a href="./../../../../index.html" class="btn btn-danger px-4">Sair</a>
+        <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
       </div>
     </nav>
   </div>
@@ -54,6 +54,9 @@
           <ul class="list-unstyled">
             <li>
               <a href="./../../admin/area_Admin.html" class="text-dark"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</a>
+            </li>
+            <li>
+              <a href="./Professor_Index.html" class="text-dark"><i class="fas fa-list"></i> Listar Professores</a>
             </li>
           </ul>
         </div>
@@ -203,6 +206,10 @@
 
   <script src="./../../../../js/validacao.js"></script>
   <script>
+    function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
     // Função que será chamada ao submeter o formulário
     function salvarProfessor(event){
         event.preventDefault(); // Impede o envio do formulário de forma tradicional

@@ -38,7 +38,7 @@
         <div class="navbar-nav font-weight-bold mx-auto">
           <a href="./../../professor/area_Professor.html" class="nav-item nav-link">Área do Professor</a>
         </div>
-        <a href="logout.html" class="btn btn-danger px-4">Sair</a>
+        <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
       </div>
     </nav>
   </div>
@@ -55,6 +55,9 @@
             <li>
               <a href="./../../professor/area_Professor.html" class="text-dark"><i class="fas fa-arrow-left"></i> Voltar
                 ao Dashboard</a>
+            </li>
+            <li>
+              <a href="./notas_Faltas_Index.html" class="text-dark"><i class="fas fa-list"></i> Listar Notas e Faltas</a>
             </li>
           </ul>
         </div>
@@ -255,7 +258,10 @@
       alert("Notas e faltas salvas com sucesso!");
       document.location.href = "./../../CRUD/aluno/notas_Faltas_Index.html";
     }
-
+    function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../../index.html";
+      }
     document.addEventListener("DOMContentLoaded", () => {
       carregarTurmas();
     });
