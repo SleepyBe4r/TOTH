@@ -61,50 +61,7 @@
           <section id="notas_faltas" class="mb-5">
             <h4 class="text-primary">Notas e Faltas</h4>
             <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Disciplina</th>
-                  <th>Nota 1</th>
-                  <th>Nota 2</th>
-                  <th>Média</th>
-                  <th>Faltas</th>
-                  <th>Situação</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Matemática</td>
-                  <td>8.0</td>
-                  <td>9.0</td>
-                  <td>8.5</td>
-                  <td>2</td>
-                  <td><span class="badge badge-success">Aprovado</span></td>
-                </tr>
-                <tr>
-                  <td>Português</td>
-                  <td>7.5</td>
-                  <td>8.5</td>
-                  <td>8.0</td>
-                  <td>0</td>
-                  <td><span class="badge badge-success">Aprovado</span></td>
-                </tr>
-                <tr>
-                  <td>História</td>
-                  <td>5.0</td>
-                  <td>6.0</td>
-                  <td>5.5</td>
-                  <td>4</td>
-                  <td><span class="badge badge-warning">Recuperação</span></td>
-                </tr>
-                <tr>
-                  <td>Geografia</td>
-                  <td>4.0</td>
-                  <td>3.0</td>
-                  <td>3.5</td>
-                  <td>6</td>
-                  <td><span class="badge badge-danger">Reprovado</span></td>
-                </tr>
-              </tbody>
+              
             </table>
           </section>
         </div>
@@ -138,5 +95,129 @@
 
     <!-- Template Javascript -->
     <script src="./../../../../js/main.js"></script>
+    <script>
+      // Exemplo de dados simulados
+      let notas = JSON.parse(localStorage.getItem("notas")) || [];
+      let alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+      let professores = JSON.parse(localStorage.getItem("professores")) || [];
+      let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
+      let disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
+
+
+      function carregarNotas() {
+          let usuario;
+          let html = "";
+          let tabela = document.getElementById("lista_notas");
+
+          alunos.forEach(e => {
+            if(usuarioAtual == e.id) usuario = "A";
+          });
+
+          professores.forEach(e => {
+            if(usuarioAtual == e.id) usuario = "P";
+          });
+
+          switch (usuario) {
+            case "A":
+              html += `
+              <thead>
+                <tr>
+                  <th>Disciplina</th>
+                  <th>Bimestre</th>
+                  <th>Nota</th>
+                  <th>Faltas</th>
+                  <th>Situação</th>
+                </tr>
+              </thead>
+              <tbody>`;
+
+              notas.forEach(e => {
+                if(usuarioAtual == e.aluno){
+                  let disciplina = disciplinas.find(a => a.id === e.disciplina);
+                  let situacao;
+
+                  if(e.nota < 3){
+                    situacao = `<span class="badge badge-danger">Reprovado</span>`;
+                  } else if(e.nota < 6){
+                    situacao = `<span class="badge badge-warning">Recuperação</span>`;
+                  } else{
+                    situacao = `<span class="badge badge-success">Aprovado</span>`;
+                  }
+                  
+                  html += `
+                  <tr>
+                    <td>${disciplina.nome}</td>
+                    <td>${e.bimestre}</td>
+                    <td>${e.nota}</td>
+                    <td>${e.faltas}</td>
+                    <td>${situacao}</td>
+                  </tr>
+                  `;    
+                }
+              });
+              html += `</tbody>`;
+              tabela.innerHTML = html;
+              break;
+          
+            default:
+              break;
+          }
+          
+      }
+  
+      function excluirTurma(id) {      
+        localStorage.removeItem("notas");
+        let lista_aux = [];
+        
+        notas.forEach(e => {
+            if (id != e.id) {
+                lista_aux.push(e);
+            }
+        });
+  
+        localStorage.setItem('notas', JSON.stringify(lista_aux));
+        notas = JSON.parse(localStorage.getItem('notas')) || [];
+        carregarNotas();
+      }
+  
+      function selected_all() {
+          let check_box_all = document.querySelector("#ckTodos");
+          let check_list = document.querySelectorAll("[data-id]");
+          if(check_box_all.checked){
+              check_list.forEach(ck_item => {
+                  ck_item.checked = check_box_all.checked;
+              });
+          } else{
+              for (let ck_item of check_list) {
+                  ck_item.checked = check_box_all.checked;
+              }
+          }
+      }
+  
+      function del_selected_item() {        
+          let check_list = document.querySelectorAll("[data-id]");
+          if (check_list.length > 0) {
+              check_list.forEach(ck_item => {
+                  if(ck_item.checked){ excluirTurma(parseInt(ck_item.dataset.id)); }
+              });        
+          } else { alert("Não há item para ser excluídos")}
+          let check_box_all = document.querySelector("#ckTodos");
+          check_box_all.checked = false;
+      }
+  
+      // Carregar notas ao carregar a página
+      document.addEventListener("DOMContentLoaded", ()=>{
+          carregarNotas();
+  
+          let ckTodos = document.querySelector("#ckTodos");
+          ckTodos.addEventListener("change",selected_all,false);
+          
+          let btn_select_del = document.querySelector("#btnExcluirSelecionados");
+          btn_select_del.addEventListener("click",del_selected_item,false);
+  
+          let check_box_all = document.querySelector("#ckTodos");
+          check_box_all.checked = false;
+      });
+    </script>
   </body>
 </html>

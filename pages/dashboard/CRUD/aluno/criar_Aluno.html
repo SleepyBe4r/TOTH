@@ -294,7 +294,7 @@
       let html = `<option value="" selected disabled>Selecione a Turma</option>`;
       turmas.forEach(e => {
         if(slct_series.value == e.serie) {
-          html += `<option value="${e.nome}">${e.nome}</option>`;
+          html += `<option value="${e.id}">${e.nome}</option>`;
         }
       });
       if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;

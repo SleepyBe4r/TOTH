@@ -131,6 +131,7 @@
       turmas.forEach(e => {
           html += `<option value="${e.id}">${e.nome}</option>`;
       });
+      if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;
       turma_slct.innerHTML = html;
     }
     
@@ -148,6 +149,7 @@
             email: e.email,
           });
       });
+      if(html == `<option value="" selected disabled>Selecione o Professor</option>`) html += `<option value="">Nenhum professor cadastrada</option>`;
       professor_slct.innerHTML = html;
     }
 
@@ -165,7 +167,6 @@
       const nomeDisciplina = document.getElementById("txtNomeDisciplina").value.trim();
       const turma = document.getElementById("slctTurma").value;
       const professorNome = document.getElementById("txtProfessorNome").value.trim();
-      const professorEmail = document.getElementById("txtProfessorEmail").value.trim();
 
       // Cria um objeto com os dados da disciplina
       const disciplina = {
@@ -173,7 +174,6 @@
         nome: nomeDisciplina,
         turma: turma,
         professor: professorNome,
-        emailProfessor: professorEmail,
       };
 
       // Recupera as disciplinas existentes do Local Storage (se houver)

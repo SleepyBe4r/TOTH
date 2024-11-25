@@ -41,7 +41,7 @@
             <a href="#disciplinas" class="nav-item nav-link">Disciplinas</a>
             <a href="#eventos" class="nav-item nav-link">Eventos</a>
           </div>
-          <a href="./../../../index.html" class="btn btn-danger px-4">Sair</a>
+          <button class="btn btn-danger px-4" onclick="sair()">Sair</button>
         </div>
       </nav>
     </div>
@@ -141,9 +141,9 @@
     <script src="./../../../js/main.js"></script>
 
     <script>
+      let admins = JSON.parse(localStorage.getItem("admins")) || [];
+      let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
       function carregarPerfil() {
-        let admins = JSON.parse(localStorage.getItem("admins")) || [];
-        let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
         admins.forEach(e => {
           if(e.id == usuarioAtual){
             document.querySelector("#txtNome").innerHTML = `<strong>Nome: ${e.nome}</strong>`;
@@ -152,7 +152,17 @@
           }
         });
       }
+      function sair() {
+        localStorage.removeItem("usuarioAtual");
+        window.location="./../../../index.html";
+      }
       document.addEventListener("DOMContentLoaded", ()=>{
+        let filteredId = admins.filter(a => a.id == usuarioAtual);
+        
+        if (filteredId.length == 0) {
+          alert("usuario não está logado");
+          window.location="./../../home/login.html";
+        }
         carregarPerfil();
       });
     </script>

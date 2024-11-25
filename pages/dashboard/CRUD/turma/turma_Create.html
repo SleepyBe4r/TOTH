@@ -163,6 +163,7 @@
       professores.forEach(e => {
           html += `<option value="${e.id}">${e.nome}</option>`;
       });
+      if(html == `<option value="" selected disabled>Selecione o Professor</option>`) html += `<option value="">Nenhum professor cadastrada</option>`;
       professor_slct.innerHTML = html;
     }
 
@@ -183,7 +184,6 @@
       const dataInicio = document.getElementById("dtInicioTurma").value;
       const dataFim = document.getElementById("dtFimTurma").value;
       const professorNome = document.getElementById("txtProfessorNome").value.trim();
-      const professorEmail = document.getElementById("txtEmail").value.trim();
   
       // Cria um objeto com os dados
       const turma = {

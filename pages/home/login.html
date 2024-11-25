@@ -51,7 +51,7 @@
 
   <div class="container">
     <div class="row mt-2">
-      <h3>Caso seja a primeira vez abrindo esse site clique no botão abaixo para inicializar um usuario para o aluno, professor e admin,</h3>
+      <h3>Caso seja a primeira vez abrindo esse site clique no botão abaixo para inicializar um usuario para o aluno, professor e admin.</h3>
       <p>
         Aluno -> Usuario: aluno, Senha: Aluno123$ <br>
         Professor -> Usuario: professor, Senha: Professor123$ <br>
@@ -184,6 +184,7 @@
       const alunos = JSON.parse(localStorage.getItem("alunos")) || [];
       const professores = JSON.parse(localStorage.getItem("professores")) || [];
       const turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+      const disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
 
       const admin = {
         id: 1,
@@ -206,19 +207,26 @@
         }
       };
 
+      const disciplina = {
+        id: 2,
+        nome: "matematica",
+        turma: 3,
+        professor: 4,
+      };
+
       const turma = {
-        id: 1,
+        id: 3,
         nome: "Turma A",
         ano: "2024",
         serie: "2º Ano",
-        professor: "Mariana Silva",
+        professor: 4,
         dataInicio: "2024-02-01",
         turno: "Matutino",
         dataFim: "2024-12-15",
       };
 
       const aluno = {
-        id: 1,
+        id: 5,
         usuario: "aluno",
         senha: "Aluno123$",
         nome: "Lucas Oliveira",
@@ -237,10 +245,7 @@
           rg: "45.678.901-2",
           cpf: "222.333.444-55"
         },
-        ano: "2024",
-        serie: "2º Ano",
-        turma: "Turma A",
-        turno: "Matutino",
+        turma: 3,
         saude: {
           alergias: "Pólen",
           medicamentos: "Antialérgico",
@@ -249,7 +254,7 @@
       };
 
       const professor = {
-        id: 1,
+        id: 4,
         usuario: "professor",
         senha: "Professor123$",
         nome: "Mariana Silva",
@@ -271,6 +276,14 @@
 
       // Variável para mensagens de criação
       let mensagens = [];
+
+      // Adiciona disciplina
+      let disciplinaExistente = disciplinas.find(a => a.id === disciplina.id);
+      if (!disciplinaExistente) {
+        disciplinas.push(disciplina);
+        localStorage.setItem("disciplinas", JSON.stringify(disciplinas));
+        mensagens.push(`Disciplina '${disciplina.nome}' foi criado.`);
+      }
 
       // Adiciona admin
       let adminExistente = admins.find(a => a.id === admin.id);
