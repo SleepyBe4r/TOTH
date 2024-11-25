@@ -23,7 +23,7 @@
     <link href="./../../../../css/style.css" rel="stylesheet" />
   </head>
 
-  <body>
+  <body class="body-grid">
     <!-- Navbar Start -->
     <div class="container-fluid bg-light shadow">
       <nav class="navbar navbar-expand-lg navbar-light py-3 px-5">
@@ -60,7 +60,27 @@
           <!-- Tabela de Notas e Faltas -->
           <section id="notas_faltas" class="mb-5">
             <h4 class="text-primary">Notas e Faltas</h4>
-            <table class="table table-striped">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <select id="slctTurma" class="form-control" onchange="carregarDisciplinas(this,slctdisciplina)" required>
+                  <option value="" selected disabled>Selecione a Turma</option>
+                </select>
+                <label for="turma">Turma</label>
+              </div>
+              <div class="col-md-4 mb-3">
+                <select id="slctdisciplina" class="form-control" onchange="carregarBimestre(this, slctbimestre)" required>
+                  <option value="" selected disabled>Selecione a Turma</option>
+                </select>
+                <label for="slctdisciplina">Disciplina</label>
+              </div>
+              <div class="col-md-4 mb-3">
+                <select id="slctbimestre" class="form-control" onchange="carregarNotas(slctdisciplina, this)" required>
+                  <option value="" selected disabled>Selecione a Disciplina</option>
+                </select>
+                <label for="slctbimestre">Bimestre</label>
+              </div>
+            </div>
+            <table id="lista_notas" class="table table-striped">
               
             </table>
           </section>
@@ -89,12 +109,8 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="./../../../../lib/easing/easing.min.js"></script>
-    <script src="./../../../../lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="./../../../../lib/lightbox/js/lightbox.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="./../../../../js/main.js"></script>
     <script>
       // Exemplo de dados simulados
       let notas = JSON.parse(localStorage.getItem("notas")) || [];
@@ -102,26 +118,102 @@
       let professores = JSON.parse(localStorage.getItem("professores")) || [];
       let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
       let disciplinas = JSON.parse(localStorage.getItem("disciplinas")) || [];
+      let turmas = JSON.parse(localStorage.getItem("turmas")) || [];
+      let usuario;
 
+      function carregarTurmas() {
+        let slctTurma = document.querySelector("#slctTurma");
+        if (usuario == "A") {
+          let html = `<option value="" selected disabled>Selecione a Turma</option>`;
+          alunos.forEach(e => {
+            if(usuarioAtual == e.id){
+              let turma = turmas.filter(a => a.id == e.turma);
+              turma.forEach(t => {
+                html += `<option value="${t.id}">${t.nome}</option>`;
+              });
+            }
+          });
+        } else{
+          turmas.forEach(e => {
+            if(usuarioAtual == e.professor){
+              html += `<option value="${e.id}">${e.nome}</option>`;
+            }
+          });
+        }
+        if(html == `<option value="" selected disabled>Selecione a Turma</option>`) html += `<option value="">Nenhuma turma cadastrada</option>`;      
+        slctTurma.innerHTML = html;
+      }
 
+      function carregarDisciplinas(slct_Turma,slct_Disc) {
+        let html = `<option value="" selected disabled>Selecione a Disciplina</option>`;
+        disciplinas.forEach(e => {
+          if(slct_Turma.value == e.turma){
+            html += `<option value="${e.id}">${e.nome}</option>`;
+          }
+        });
+        if(html == `<option value="" selected disabled>Selecione a Disciplina</option>`) html += `<option value="">Nenhuma disciplina cadastrada</option>`;
+        slct_Disc.innerHTML = html;
+      }
+
+      function carregarBimestre(slct_Disc, slct_Bime) {
+        let nota = notas.filter(a => a.aluno == usuarioAtual && a.disciplina == parseInt(slct_Disc.value));
+        let html = `<option value="" selected disabled>Selecione o Bimestre</option>`;
+        nota.forEach(e => {
+          html += `<option value="${e.bimeste}">${e.bimestre}° Bimestre</option>`;
+        });
+        if(html == `<option value="" selected disabled>Selecione o Bimestre</option>`) html += `<option value="">Nenhum Bimestre cadastrado</option>`;
+        slct_Bime.innerHTML = html;
+      }
+    
       function carregarNotas() {
-          let usuario;
           let html = "";
           let tabela = document.getElementById("lista_notas");
-
-          alunos.forEach(e => {
-            if(usuarioAtual == e.id) usuario = "A";
-          });
-
-          professores.forEach(e => {
-            if(usuarioAtual == e.id) usuario = "P";
-          });
-
           switch (usuario) {
             case "A":
               html += `
               <thead>
                 <tr>
+                  <th>Disciplina</th>
+                  <th>Bimestre</th>
+                  <th>Nota</th>
+                  <th>Faltas</th>
+                  <th>Situação</th>
+                </tr>
+              </thead>
+              <tbody>`;
+
+              notas.forEach(e => {
+                if(usuarioAtual == e.aluno){
+                  let disciplina = disciplinas.find(a => a.id === e.disciplina);
+                  let situacao;
+
+                  if(e.nota < 3){
+                    situacao = `<span class="badge badge-danger">Reprovado</span>`;
+                  } else if(e.nota < 6){
+                    situacao = `<span class="badge badge-warning">Recuperação</span>`;
+                  } else{
+                    situacao = `<span class="badge badge-success">Aprovado</span>`;
+                  }
+                  
+                  html += `
+                  <tr>
+                    <td>${disciplina.nome}</td>
+                    <td>${e.bimestre}°</td>
+                    <td>${e.nota}</td>
+                    <td>${e.faltas}</td>
+                    <td>${situacao}</td>
+                  </tr>
+                  `;    
+                }
+              });
+              html += `</tbody>`;
+              tabela.innerHTML = html;
+              break;
+            case "P":
+              html += `
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="ckTodos"></th></th>
                   <th>Disciplina</th>
                   <th>Bimestre</th>
                   <th>Nota</th>
@@ -158,11 +250,18 @@
               html += `</tbody>`;
               tabela.innerHTML = html;
               break;
-          
             default:
               break;
           }
           
+          // let ckTodos = document.querySelector("#ckTodos");
+          // ckTodos.addEventListener("change",selected_all,false);
+          
+          // let btn_select_del = document.querySelector("#btnExcluirSelecionados");
+          // btn_select_del.addEventListener("click",del_selected_item,false);
+  
+          // let check_box_all = document.querySelector("#ckTodos");
+          // check_box_all.checked = false;
       }
   
       function excluirTurma(id) {      
@@ -207,16 +306,14 @@
   
       // Carregar notas ao carregar a página
       document.addEventListener("DOMContentLoaded", ()=>{
-          carregarNotas();
-  
-          let ckTodos = document.querySelector("#ckTodos");
-          ckTodos.addEventListener("change",selected_all,false);
-          
-          let btn_select_del = document.querySelector("#btnExcluirSelecionados");
-          btn_select_del.addEventListener("click",del_selected_item,false);
-  
-          let check_box_all = document.querySelector("#ckTodos");
-          check_box_all.checked = false;
+          alunos.forEach(e => {
+            if(usuarioAtual == e.id) usuario = "A";
+          });
+
+          professores.forEach(e => {
+            if(usuarioAtual == e.id) usuario = "P";
+          });
+          carregarTurmas();
       });
     </script>
   </body>
