@@ -23,7 +23,7 @@
   <link href="./../../../css/style.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="body-grid">
   <!-- Navbar Start -->
   <div class="container-fluid bg-light shadow">
     <nav class="navbar navbar-expand-lg navbar-light py-3 px-5">
@@ -88,14 +88,12 @@
           <p>As próximas aulas estão disponíveis no portal do aluno.</p>
         </section>
 
-<<<<<<< HEAD
         Calendário Section
         <section id="calendario">
           <h4 class="text-primary">Calendário</h4>
           <p>Visualize os eventos da sua escola aqui.</p>
         </section> -->
-=======
->>>>>>> a0f9ef25412ed4cb845407563399f3d901fe4fb5
+
       </div>
     </div>
   </div>
@@ -121,22 +119,18 @@
   <!-- JavaScript Libraries -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <script src="./../../../lib/easing/easing.min.js"></script>
-  <script src="./../../../lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="./../../../lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="./../../../lib/lightbox/js/lightbox.min.js"></script>
+  
 
   <!-- Contact Javascript File -->
-  <script src="./../../../mail/jqBootstrapValidation.min.js"></script>
-  <script src="./../../../mail/contact.js"></script>
+  
 
   <!-- Template Javascript -->
-  <script src="./../../../js/main.js"></script>
-  <script src="./../../../js/area.js"></script>
+  <!-- <script src="./../../../js/main.js"></script> -->
+  <!-- <script src="./../../../js/area.js"></script> -->
   <script>
+    let alunos = JSON.parse(localStorage.getItem("alunos")) || [];
+    let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
     function carregarPerfil() {
-      let alunos = JSON.parse(localStorage.getItem("alunos")) || [];
-      let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual")) || [];
       alunos.forEach(e => {
         if(e.id == usuarioAtual){
           document.querySelector("#txtNome").innerHTML = `<strong>Nome: ${e.nome}</strong>`;
