@@ -56,7 +56,7 @@
               <a href="./../../admin/area_Admin.html" class="text-dark"><i class="fas fa-arrow-left"></i> Voltar ao Dashboard</a>
             </li>
             <li>
-              <a href="./turma_Index.html" class="text-dark"><i class="fas fa-list"></i> Listar turmas</a>
+              <a href="./turma_Index.html" class="text-dark"><i class="fas fa-list"></i> Listar Reservas</a>
             </li>
           </ul>
         </div>
@@ -71,14 +71,14 @@
             <h4 class="text-primary">Informações da Sala</h4>
             <div class="row">
               <div class="col-md-3 mb-3">
-                <select id="slctSerie" class="form-control" required>
+                <select id="slctSala" class="form-control" required>
                   <option value="" selected disabled>Selecione a Sala</option>
                   <option value="Sala 1">Sala 1</option>
                   <option value="Sala 2">Sala 2</option>
                   <option value="Sala 3">Sala 3</option>
                   <option value="Sala 4">Sala 4</option>
                 </select>
-                <label for="slctSerie" class="form-label">Salas *  </label>
+                <label for="slctSala" class="form-label">Salas *  </label>
               </div>              
               <div class="col-md-3 mb-3">
                 <select id="slctTurno" class="custom-select" required>
@@ -130,7 +130,7 @@
                 <label id="erro_dtTurma" class="form-label text-danger"></label>
               </div>
             </div>
-            
+
             <!-- Botões -->
             <button type="submit" class="btn btn-primary">Finalizar cadastro</button>
             <button class="btn btn-dark" type="submit" onclick="window.location='./../../admin/area_Admin.html'">Retornar</button>
