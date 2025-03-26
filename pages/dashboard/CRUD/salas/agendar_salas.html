@@ -69,15 +69,7 @@
           <form onsubmit="salvarTurma(event)">
             <!-- Dados da Turma -->
             <h4 class="text-primary">Informações da Sala</h4>
-            <div class="row">              
-              <div class="col-md-3 mb-3">
-                <input type="text" class="form-control" id="txtNomeTurma" placeholder="Turma A" required>
-                <label for="txtNomeTurma" class="form-label">Nome da Turma *  </label>
-              </div>
-              <div class="col-md-3 mb-3">
-                <input type="number" class="form-control" id="txtAnoTurma" placeholder="2024" required>
-                <label for="txtAnoTurma" class="form-label">Ano *  </label>
-              </div>
+            <div class="row">
               <div class="col-md-3 mb-3">
                 <select id="slctSerie" class="form-control" required>
                   <option value="" selected disabled>Selecione a Sala</option>
@@ -86,8 +78,8 @@
                   <option value="Sala 3">Sala 3</option>
                   <option value="Sala 4">Sala 4</option>
                 </select>
-                <label for="slctSerie" class="form-label">Série *  </label>
-              </div>
+                <label for="slctSerie" class="form-label">Salas *  </label>
+              </div>              
               <div class="col-md-3 mb-3">
                 <select id="slctTurno" class="custom-select" required>
                   <option value="" selected disabled>Selecione</option>
@@ -95,20 +87,6 @@
                   <option value="vespertino">Vespertino</option>
                 </select>
                 <label for="slctTurno" class="form-label">Turno *  </label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <input type="date" class="form-control" id="dtInicioTurma"
-                    onblur="validarDatasTurma(dtInicioTurma,dtFimTurma,erro_dtTurma)" required>
-                <label for="dtInicioTurma" class="form-label">Data de Início *  </label>
-              </div>
-              <div class="col-md-6 mb-3">
-                <input type="date" class="form-control" id="dtFimTurma"
-                    onblur="validarDatasTurma(dtInicioTurma,dtFimTurma,erro_dtTurma)" required>
-                <label for="dtFimTurma" class="form-label">Data de Fim *  </label>
-                <label id="erro_dtTurma" class="form-label text-danger"></label>
               </div>
             </div>
 
@@ -127,6 +105,32 @@
                 <label for="txtProfessorEmail" class="form-label">E-mail do Professor</label>
               </div>
             </div>
+            <!-- Informações da Turma Resevervada -->
+            <h4 class="text-primary">Turma da Reserva</h4>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <select id="slctProfessor" class="form-control" onchange="carregarEmail(this, txtProfessorEmail)" required>
+                  
+                  <!-- Turmas serão carregadas automaticamente -->
+                </select>
+                <label for="slctProfessor" class="form-label">Nome da Turma *</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="time" class="form-control" id="dtInicioTurma"
+                    onblur="validarDatasTurma(dtInicioTurma,dtFimTurma,erro_dtTurma)" required>
+                <label for="dtInicioTurma" class="form-label">Horário de Início *  </label>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="time" class="form-control" id="dtFimTurma"
+                    onblur="validarDatasTurma(dtInicioTurma,dtFimTurma,erro_dtTurma)" required>
+                <label for="dtFimTurma" class="form-label">Horário de Término *  </label>
+                <label id="erro_dtTurma" class="form-label text-danger"></label>
+              </div>
+            </div>
+            
             <!-- Botões -->
             <button type="submit" class="btn btn-primary">Finalizar cadastro</button>
             <button class="btn btn-dark" type="submit" onclick="window.location='./../../admin/area_Admin.html'">Retornar</button>
